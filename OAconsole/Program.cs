@@ -16,7 +16,7 @@ namespace OAconsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+          //  Console.WriteLine("Hello World!");
 
             //     WebClient_test();
             //update to github
@@ -26,12 +26,12 @@ namespace OAconsole
             // string s = Console.ReadLine();
             //  get_Data("38695");
             //  get_Data("38694");
-            Access_OA.Test_index();
+          //  Access_OA.Test_index();
 
             //   Test_index();
 
-            Console.WriteLine("app is done!");
-            Console.ReadLine();
+         //   Console.WriteLine("app is done!");
+         //   Console.ReadLine();
         }
 
         static void WebClient_test()
