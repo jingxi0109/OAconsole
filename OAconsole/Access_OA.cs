@@ -140,24 +140,24 @@ namespace OAconsole
         }
         static QuickType.Quotation get_quotationData(string quota_code)
         {
-            var client = new RestClient("https://oa.chinasupercloud.com/api/quotation/get?token=undefined&=");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("cache-control", "no-cache");
-            request.AddHeader("Connection", "keep-alive");
-            request.AddHeader("Cookie", "JSESSIONID=" + jsid + "; loginName=\""+loginID+"\"");
-            request.AddHeader("Content-Length", "21");
-            request.AddHeader("Accept-Encoding", "gzip, deflate");
-            request.AddHeader("Host", "oa.chinasupercloud.com");
-            request.AddHeader("Postman-Token", "c1d8e2d5-d650-4566-a34e-d7a138429f24,ad00a64d-cb49-4341-930e-35638279c7c0");
-            request.AddHeader("Cache-Control", "no-cache");
-            request.AddHeader("Accept", "*/*");
-            request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
-            request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\"quotation_id\": "+ quota_code + "}", ParameterType.RequestBody);
-            IRestResponse response = client.Execute(request);
+           var client = new RestClient("https://oa.chinasupercloud.com/api/quotation/get?token=undefined&=");
+     var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Cookie", "JSESSIONID=" + jsid + "; loginName=\"" + loginID + "\"");
+                request.AddHeader("Content-Length", "21");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "oa.chinasupercloud.com");
+                request.AddHeader("Postman-Token", "c1d8e2d5-d650-4566-a34e-d7a138429f24,ad00a64d-cb49-4341-930e-35638279c7c0");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", "{\"quotation_id\": " + quota_code + "}", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
 
-            QuickType.Quotation quota = QuickType.Quotation.FromJson(response.Content);
-
+                QuickType.Quotation quota = QuickType.Quotation.FromJson(response.Content);
+            
             return quota;
 
         }
