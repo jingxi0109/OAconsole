@@ -8,6 +8,7 @@ namespace OAconsole
 {
     public class Access_OA
     {
+
         static string jsid = "";
         static string loginID = "chenjx@chinasupercloud.com";
         static string passcode = "Winsows200";
@@ -18,7 +19,7 @@ namespace OAconsole
             get_ConfigData("38659");
         }
 
-        static void get_verycode()
+        static Bitmap  get_verycode()
         {
             DateTime startDt = new DateTime(1970, 1, 1);
             TimeSpan timeSpan = DateTime.UtcNow - startDt;
@@ -57,6 +58,7 @@ namespace OAconsole
             // Console.WriteLine(client.CookieContainer.GetCookieHeader(client.BaseUrl));
             Console.WriteLine(response.Cookies[0].Value);
             jsid = response.Cookies[0].Value;
+
             //foreach (var s in response.Cookies)
             //{
             //    Console.Write(s.Name+"\t");
@@ -65,7 +67,7 @@ namespace OAconsole
             //}
             //  Console.WriteLine(request.Parameters );//client.CookieContainer.GetCookies(client.BaseUrl)[0].Name);
             //  Console.WriteLine(client.CookieContainer.GetCookies(client.BaseUrl)[0].Value);
-
+            return bitmap;
         }
         static bool Request_Login(string verycode)
         {
@@ -157,10 +159,13 @@ namespace OAconsole
                 IRestResponse response = client.Execute(request);
 
                 QuickType.Quotation quota = QuickType.Quotation.FromJson(response.Content);
+          
             
             return quota;
 
         }
+
+
     }
 
   

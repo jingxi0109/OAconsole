@@ -41,5 +41,6 @@ namespace WCore
             this.dataGrid.ItemsSource = cf.Result.ProductConfigDataList;
 
         }
+
     }
 }
