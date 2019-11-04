@@ -9,7 +9,9 @@
     <Grid Loaded="Grid_Loaded">
 
         <DataGrid x:Name="dataGrid" Margin="10,10,10,235"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,10" Click="button_Click" Height="19" VerticalAlignment="Bottom"/>
+        <Button x:Name="btn" Content="Button" HorizontalAlignment="Left" Margin="23,241,0,0" VerticalAlignment="Top" Click="btn_Click"/>
+        <Button x:Name="btn_data" Content="fill data" HorizontalAlignment="Left" Margin="23,276,0,0" VerticalAlignment="Top" Click="btn_data_Click"/>
+
 
     </Grid>
 </Window>
