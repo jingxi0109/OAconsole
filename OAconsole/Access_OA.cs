@@ -10,18 +10,23 @@ namespace OAconsole
     {
 
         static string jsid = "";
+        static string token = "";
         static string loginID = "chenjx@chinasupercloud.com";
         static string passcode = "Winsows200";
 
         public static string Jsid { get => jsid; }
+        public static string Token { get => token; }
 
         public static void Test_index()
         {
             get_verycode();
             Request_Login(Console.ReadLine());
 
-            var respo = get_ConfigData("38659", Jsid);
-            Console.WriteLine(respo.ToJson());
+            //   var respo = get_ConfigData("38659", Jsid);
+            //      Console.WriteLine(respo.ToJson());
+           // var res = 
+                GetConfigList(2);
+          //  Console.WriteLine(res.Result.Count);
         }
 
         public static Bitmap get_verycode()
@@ -64,6 +69,8 @@ namespace OAconsole
             Console.WriteLine(response.Cookies[0].Value);
             jsid = response.Cookies[0].Value;
 
+           
+
             //foreach (var s in response.Cookies)
             //{
             //    Console.Write(s.Name+"\t");
@@ -102,7 +109,8 @@ namespace OAconsole
             Console.WriteLine(code);
             request.AddParameter("undefined", "email=" + loginID + "&password=" + passcode + "&verycode=" + code, ParameterType.RequestBody);
             IRestResponse responselogin = client.Execute(request);
-
+            QuickType_login.Login login = QuickType_login.Login.FromJson(responselogin.Content);
+            token = login.Token;
             Console.WriteLine(responselogin.Content);
 
             return responselogin.Content.Contains("SUCCESS");
@@ -171,23 +179,42 @@ namespace OAconsole
         }
         static QuickType_configlist.TopLevel GetConfigList(int page)
         {
-            var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page");
-            var request = new RestRequest(Method.GET);
+            //var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page");
+            //var request = new RestRequest(Method.GET);
+            //request.AddHeader("cache-control", "no-cache");
+            //request.AddHeader("Connection", "keep-alive");
+            //request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"");
+            //request.AddHeader("Content-Length", "21");
+            //request.AddHeader("Accept-Encoding", "gzip, deflate");
+            //request.AddHeader("Host", "oa.chinasupercloud.com");
+            //request.AddHeader("Postman-Token", "c1d8e2d5-d650-4566-a34e-d7a138429f24,ad00a64d-cb49-4341-930e-35638279c7c0");
+            //request.AddHeader("Cache-Control", "no-cache");
+            //request.AddHeader("Accept", "*/*");
+            //request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
+            //request.AddHeader("Content-Type", "application/json");
+            ////   request.AddParameter("undefined", "{\"page_index\":"+3+",\page_size\":10,\"keyword\":\"\"\ "}", ParameterType.RequestBody);
+            //request.AddParameter("undefined", "{\"page_index\":" + page + ",\"page_size\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
+            //
+            var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page?token="+token);
+            var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Connection", "keep-alive");
-            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"");
-            request.AddHeader("Content-Length", "21");
+            //request.AddHeader("Cookie", "JSESSIONID=0E4B91133F74D631E898008614F829CB; //loginName="chenjx@chinasupercloud.com"");
+            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"; token=" + token);
+            request.AddHeader("Content-Length", "44");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("Host", "oa.chinasupercloud.com");
-            request.AddHeader("Postman-Token", "c1d8e2d5-d650-4566-a34e-d7a138429f24,ad00a64d-cb49-4341-930e-35638279c7c0");
+           // request.AddHeader("Postman-Token", "d48a4ffd-3297-44d7-9d85-00b37454874e,54a0c7dc-f259-415f-8812-3550161514fb");
             request.AddHeader("Cache-Control", "no-cache");
             request.AddHeader("Accept", "*/*");
             request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
-            request.AddHeader("Content-Type", "application/json");
-            //   request.AddParameter("undefined", "{\"page_index\":"+3+",\page_size\":10,\"keyword\":\"\"\ "}", ParameterType.RequestBody);
-            request.AddParameter("undefined", "{\"page_index\":" + page + ",\"page_size\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
-
+           request.AddHeader("Content-Type", "application/json;charset=UTF-8");
+          //  request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddParameter("undefined", "{\"page_index\":" + page.ToString() + ",\"page_size\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
+            //
+       //     IRestResponse response = client.Execute(request);
+            Console.WriteLine(response.Content);
             //QuickType.ProductConfigList pcl=QuickType.ProductConfigList
             QuickType_configlist.TopLevel top = QuickType_configlist.TopLevel.FromJson(response.Content);
 
