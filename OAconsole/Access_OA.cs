@@ -19,10 +19,12 @@ namespace OAconsole
         {
             get_verycode();
             Request_Login(Console.ReadLine());
-        //    get_ConfigData("38659");
+
+            var respo = get_ConfigData("38659", Jsid);
+            Console.WriteLine(respo.ToJson());
         }
 
-       public  static Bitmap  get_verycode()
+        public static Bitmap get_verycode()
         {
             DateTime startDt = new DateTime(1970, 1, 1);
             TimeSpan timeSpan = DateTime.UtcNow - startDt;
@@ -72,7 +74,7 @@ namespace OAconsole
             //  Console.WriteLine(client.CookieContainer.GetCookies(client.BaseUrl)[0].Value);
             return bitmap;
         }
-   public      static bool Request_Login(string verycode)
+        public static bool Request_Login(string verycode)
         {
             var client = new RestClient("https://oa.chinasupercloud.com/api/login");
             var request = new RestRequest(Method.POST);
@@ -98,7 +100,7 @@ namespace OAconsole
             string code = verycode;//Console.ReadLine();
 
             Console.WriteLine(code);
-            request.AddParameter("undefined", "email="+loginID+"&password="+passcode+"&verycode=" + code, ParameterType.RequestBody);
+            request.AddParameter("undefined", "email=" + loginID + "&password=" + passcode + "&verycode=" + code, ParameterType.RequestBody);
             IRestResponse responselogin = client.Execute(request);
 
             Console.WriteLine(responselogin.Content);
@@ -106,13 +108,13 @@ namespace OAconsole
             return responselogin.Content.Contains("SUCCESS");
 
         }
-      public   static ConfigList get_ConfigData(string config_code,string jstemp)
+        public static ConfigList get_ConfigData(string config_code, string jstemp)
         {
             var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/get?token=undefined");
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Connection", "keep-alive");
-            request.AddHeader("Cookie", "JSESSIONID=" + jstemp + "; loginName=\""+loginID+"\"");
+            request.AddHeader("Cookie", "JSESSIONID=" + jstemp + "; loginName=\"" + loginID + "\"");
             request.AddHeader("Content-Length", "27");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("Host", "oa.chinasupercloud.com");
@@ -135,9 +137,9 @@ namespace OAconsole
             //    Console.WriteLine(res.PartName + "\t" + res.Quantity.ToString() + "\t" + res.PartCode);
             //}
             return cflist;
-         
+
         }
-        public static ConfigList GetData ()
+        public static ConfigList GetData()
         {
             OAconsole.ConfigList cflist = ConfigList.FromJson(File.ReadAllText("38659config.json"));
 
@@ -145,31 +147,55 @@ namespace OAconsole
         }
         static QuickType.Quotation get_quotationData(string quota_code)
         {
-           var client = new RestClient("https://oa.chinasupercloud.com/api/quotation/get?token=undefined&=");
-     var request = new RestRequest(Method.POST);
-                request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"");
-                request.AddHeader("Content-Length", "21");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "oa.chinasupercloud.com");
-                request.AddHeader("Postman-Token", "c1d8e2d5-d650-4566-a34e-d7a138429f24,ad00a64d-cb49-4341-930e-35638279c7c0");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
-                request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
-                request.AddHeader("Content-Type", "application/json");
-                request.AddParameter("undefined", "{\"quotation_id\": " + quota_code + "}", ParameterType.RequestBody);
-                IRestResponse response = client.Execute(request);
+            var client = new RestClient("https://oa.chinasupercloud.com/api/quotation/get?token=undefined&=");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"");
+            request.AddHeader("Content-Length", "21");
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", "oa.chinasupercloud.com");
+            request.AddHeader("Postman-Token", "c1d8e2d5-d650-4566-a34e-d7a138429f24,ad00a64d-cb49-4341-930e-35638279c7c0");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("undefined", "{\"quotation_id\": " + quota_code + "}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
 
-                QuickType.Quotation quota = QuickType.Quotation.FromJson(response.Content);
-          
-            
+            QuickType.Quotation quota = QuickType.Quotation.FromJson(response.Content);
+
+
             return quota;
 
+        }
+        static QuickType_configlist.TopLevel GetConfigList(int page)
+        {
+            var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"");
+            request.AddHeader("Content-Length", "21");
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", "oa.chinasupercloud.com");
+            request.AddHeader("Postman-Token", "c1d8e2d5-d650-4566-a34e-d7a138429f24,ad00a64d-cb49-4341-930e-35638279c7c0");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
+            request.AddHeader("Content-Type", "application/json");
+            //   request.AddParameter("undefined", "{\"page_index\":"+3+",\page_size\":10,\"keyword\":\"\"\ "}", ParameterType.RequestBody);
+            request.AddParameter("undefined", "{\"page_index\":" + page + ",\"page_size\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
+
+            IRestResponse response = client.Execute(request);
+            //QuickType.ProductConfigList pcl=QuickType.ProductConfigList
+            QuickType_configlist.TopLevel top = QuickType_configlist.TopLevel.FromJson(response.Content);
+
+            return top;
         }
 
 
     }
 
-  
+
 }

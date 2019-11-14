@@ -52,13 +52,29 @@ namespace WCore
             LogoFrm logoFrm = new LogoFrm();
             logoFrm.ShowDialog();
             this.Title = Jsd;
+
+            if(jsd.Length>3)
+            {
+
+                logoFrm.Close();
+            }
+            else
+            {
+                MessageBox.Show("login failed. ");
+            }
+          
         }
 
         private void btn_data_Click(object sender, RoutedEventArgs e)
         {
             OAconsole.ConfigList CL;
-        CL=    OAconsole.Access_OA.get_ConfigData("38659", this.Title);
+        CL=    OAconsole.Access_OA.get_ConfigData(this.textBox.Text, this.Title);
             this.dataGrid.ItemsSource = CL.Result.ProductConfigDataList;
+        }
+
+        private void button_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
