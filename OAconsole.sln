@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAconsole", "OAconsole\OAconsole.csproj", "{BF16198F-897B-476B-81FE-CB72C13DC128}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCore", "WCore\WCore.csproj", "{DEE5DA7C-3E1F-439A-B442-9EFB4C029537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WCore", "WCore\WCore.csproj", "{DEE5DA7C-3E1F-439A-B442-9EFB4C029537}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Concore", "Concore\Concore.csproj", "{AD3BFDA1-313A-4805-A442-68573BA8E83B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DEE5DA7C-3E1F-439A-B442-9EFB4C029537}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEE5DA7C-3E1F-439A-B442-9EFB4C029537}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEE5DA7C-3E1F-439A-B442-9EFB4C029537}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD3BFDA1-313A-4805-A442-68573BA8E83B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD3BFDA1-313A-4805-A442-68573BA8E83B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD3BFDA1-313A-4805-A442-68573BA8E83B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD3BFDA1-313A-4805-A442-68573BA8E83B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

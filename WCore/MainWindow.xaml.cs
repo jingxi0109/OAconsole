@@ -67,9 +67,12 @@ namespace WCore
 
         private void btn_data_Click(object sender, RoutedEventArgs e)
         {
-         //   OAconsole.ConfigList CL;
-     //   CL=    OAconsole.Access_OA.get_ConfigData(this.textBox.Text, this.Title);
-        //    this.dataGrid.ItemsSource = CL.Result.ProductConfigDataList;
+
+           OAconsole.Model.Srv_Config  cd;
+     cd=    OAconsole.Access_OA.Get_Config_details(this.textBox.Text, this.Title);
+            this.dataGrid.ItemsSource = cd.Part_List;//.ProductConfigDataList;//Result.//OptionalPartList;//ProductConfigDataList;
+                                                     //  this.dg2.ItemsSource = cd.Result.PlatformPartList;
+            this.label.Content = cd.ProductPlatform;
         }
 
         private void button_Click_1(object sender, RoutedEventArgs e)

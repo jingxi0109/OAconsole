@@ -34,6 +34,7 @@ namespace OAconsole
             {
                 Console.WriteLine(res.ProductName);
                 Console.WriteLine(res.ProductConfigId);
+                Get_Config_details(res.ProductConfigId.ToString(), jsid);
             //    Console.WriteLine(res.ProductDesc );
             }
           //  Console.WriteLine(res.Result.Count);
@@ -127,8 +128,9 @@ namespace OAconsole
             return responselogin.Content.Contains("SUCCESS");
 
         }
-        public static QT_Config.ConfigData Get_Config_details(string config_code, string jstemp)
+        public static OAconsole.Model.Srv_Config Get_Config_details(string config_code, string jstemp)
         {
+            string code = Convert_Configid(config_code);
             var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/get?token="+token);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
@@ -142,11 +144,12 @@ namespace OAconsole
             request.AddHeader("Accept", "*/*");
             request.AddHeader("User-Agent", "PostmanRuntime/7.18.0");
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\"product_config_id\":" + config_code + "}", ParameterType.RequestBody);
+            request.AddParameter("undefined", "{\"product_config_id\":" + code + "}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 
            // OAconsole.ConfigList cflist = ConfigList.FromJson(response.Content);
-            QT_Config.ConfigData cdlist = QT_Config.ConfigData.FromJson(response.Content);
+           // QT_Config.ConfigData cdlist = QT_Config.ConfigData.FromJson(response.Content);
+            QT_configbuilder.Configbuilder cgf = QT_configbuilder.Configbuilder.FromJson(response.Content);
             //Console.WriteLine(cflist.Result.ProductConfigCode);
             //foreach(var res in cflist.Result.ProductConfigDataList)
             //{
@@ -156,12 +159,56 @@ namespace OAconsole
             //{
             //    Console.WriteLine(res.PartName + "\t" + res.Quantity.ToString() + "\t" + res.PartCode);
             //}
-            return cdlist;
+
+            OAconsole.Model.Srv_Config sc = new Model.Srv_Config();
+            sc.ProductPlatform = cgf.Result.ProductName;
+            sc.Token = cgf.Token;
+            sc.Part_List = new System.Collections.Generic.List<Model.PartList>();
+
+            foreach(var r in cgf.Result.ProductConfigDataList)
+            {
+                OAconsole.Model.PartList list = new Model.PartList();
+                list.Notes = r.Notes;
+                list.PartCode = r.PartCode;
+                list.PartId = r.PartId;
+                list.PartName = r.PartName;
+                list.PartTypeName = r.PartTypeName;
+                list.ProductId = r.ProductId.ToString();
+                list.SupplierModel = r.SupplierModel;
+                list.Quantity = r.Quantity;
+                sc.Part_List.Add(list);
+                   
+            }
+            foreach(var s in cgf.Result.PlatformPartList)
+            {
+                OAconsole.Model.PartList list = new Model.PartList();
+                list.Notes = s.Notes;
+                list.PartCode = s.PartCode;
+                list.PartId = s.PartId ;
+                list.PartName = s.PartName;
+                list.PartTypeName = s.PartTypeName;
+                list.ProductId = s.ProductPlatformId;
+                list.Quantity = s.Quantity;
+                list.SupplierModel = s.SupplierModel;
+                sc.Part_List.Add(list);
+            }
+            
+            return sc;
 
         }
-
-     public   static QT_Quotaion.QuotationData Get_quotation_details(string quota_code)
+        static string Convert_Configid(string id)
         {
+
+            //Console.WriteLine(  id.LastIndexOf('N'));
+
+            string res = id.Substring(id.LastIndexOf('N') + 1);
+            int ss = Int32.Parse(res);
+            return ss.ToString();
+        }
+
+        public   static QT_Quotaion.QuotationData Get_quotation_details(string quota_code)
+        {
+          string code=  Convert_Configid(quota_code);
             var client = new RestClient("https://oa.chinasupercloud.com/api/quotation/get?token="+token);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
@@ -175,7 +222,7 @@ namespace OAconsole
             request.AddHeader("Accept", "*/*");
             request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\"quotation_id\": " + quota_code + "}", ParameterType.RequestBody);
+            request.AddParameter("undefined", "{\"quotation_id\": " + code + "}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 
           //  QuickType.Quotation quota = QuickType.Quotation.FromJson(response.Content);

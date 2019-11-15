@@ -51,5 +51,10 @@ namespace WCore
             this.Title = OAconsole.Access_OA.Jsid;
             MainWindow.Jsd = OAconsole.Access_OA.Jsid;
         }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
