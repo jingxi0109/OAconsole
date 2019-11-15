@@ -26,7 +26,7 @@ namespace WCore
 
         private void image_Loaded(object sender, RoutedEventArgs e)
         {
-            image.Source = BitmapToImageSource(OAconsole.Access_OA.get_verycode());
+            image.Source = BitmapToImageSource(OAconsole.Access_OA.Get_verycode());
         }
         BitmapImage BitmapToImageSource(Bitmap bitmap)
         {

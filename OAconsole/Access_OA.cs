@@ -17,10 +17,13 @@ namespace OAconsole
 
         public static string Jsid { get => jsid; }
         public static string Token { get => token; }
+        public static string LoginID { get => loginID; set => loginID = value; }
+        public static string Passcode { get => passcode; set => passcode = value; }
 
         public static void Test_index()
         {
-            get_verycode();
+            Get_verycode();
+            Console.WriteLine("input the verify code.");
             Request_Login(Console.ReadLine());
 
             //   var respo = get_ConfigData("38659", Jsid);
@@ -30,12 +33,13 @@ namespace OAconsole
            foreach (var res in list.Result.List)
             {
                 Console.WriteLine(res.ProductName);
-                Console.WriteLine(res.ProductDesc );
+                Console.WriteLine(res.ProductConfigId);
+            //    Console.WriteLine(res.ProductDesc );
             }
           //  Console.WriteLine(res.Result.Count);
         }
 
-        public static Bitmap get_verycode()
+        public static Bitmap Get_verycode()
         {
             DateTime startDt = new DateTime(1970, 1, 1);
             TimeSpan timeSpan = DateTime.UtcNow - startDt;
@@ -113,7 +117,7 @@ namespace OAconsole
             string code = verycode;//Console.ReadLine();
 
             Console.WriteLine(code);
-            request.AddParameter("undefined", "email=" + loginID + "&password=" + passcode + "&verycode=" + code, ParameterType.RequestBody);
+            request.AddParameter("undefined", "email=" + LoginID + "&password=" + Passcode + "&verycode=" + code, ParameterType.RequestBody);
             IRestResponse responselogin = client.Execute(request);
         //    QuickType_login.Login login = QuickType_login.Login.FromJson(responselogin.Content);
             QT_logon.Logon logon = QT_logon.Logon.FromJson(responselogin.Content);
@@ -123,13 +127,13 @@ namespace OAconsole
             return responselogin.Content.Contains("SUCCESS");
 
         }
-        public static QT_Config.ConfigData get_ConfigData(string config_code, string jstemp)
+        public static QT_Config.ConfigData Get_Config_details(string config_code, string jstemp)
         {
             var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/get?token="+token);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Connection", "keep-alive");
-            request.AddHeader("Cookie", "JSESSIONID=" + jstemp + "; loginName=\"" + loginID + "\"");
+            request.AddHeader("Cookie", "JSESSIONID=" + jstemp + "; loginName=\"" + LoginID + "\"");
             request.AddHeader("Content-Length", "27");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("Host", "oa.chinasupercloud.com");
@@ -156,13 +160,13 @@ namespace OAconsole
 
         }
 
-        static QT_Quotaion.QuotationData get_quotationData(string quota_code)
+     public   static QT_Quotaion.QuotationData Get_quotation_details(string quota_code)
         {
             var client = new RestClient("https://oa.chinasupercloud.com/api/quotation/get?token="+token);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Connection", "keep-alive");
-            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"");
+            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + LoginID + "\"");
             request.AddHeader("Content-Length", "21");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("Host", "oa.chinasupercloud.com");
@@ -180,30 +184,15 @@ namespace OAconsole
             return quotation;
 
         }
-        static QT_configlist.Configlist GetConfigList(int page)
+        public static QT_configlist.Configlist GetConfigList(int page)
         {
-            //var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page");
-            //var request = new RestRequest(Method.GET);
-            //request.AddHeader("cache-control", "no-cache");
-            //request.AddHeader("Connection", "keep-alive");
-            //request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"");
-            //request.AddHeader("Content-Length", "21");
-            //request.AddHeader("Accept-Encoding", "gzip, deflate");
-            //request.AddHeader("Host", "oa.chinasupercloud.com");
-            //request.AddHeader("Postman-Token", "c1d8e2d5-d650-4566-a34e-d7a138429f24,ad00a64d-cb49-4341-930e-35638279c7c0");
-            //request.AddHeader("Cache-Control", "no-cache");
-            //request.AddHeader("Accept", "*/*");
-            //request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
-            //request.AddHeader("Content-Type", "application/json");
-            ////   request.AddParameter("undefined", "{\"page_index\":"+3+",\page_size\":10,\"keyword\":\"\"\ "}", ParameterType.RequestBody);
-            //request.AddParameter("undefined", "{\"page_index\":" + page + ",\"page_size\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
-            //
+
             var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page?token="+token);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Connection", "keep-alive");
             //request.AddHeader("Cookie", "JSESSIONID=0E4B91133F74D631E898008614F829CB; //loginName="chenjx@chinasupercloud.com"");
-            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + loginID + "\"; token=" + token);
+            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + LoginID + "\"; token=" + token);
             request.AddHeader("Content-Length", "44");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("Host", "oa.chinasupercloud.com");
@@ -217,7 +206,7 @@ namespace OAconsole
             IRestResponse response = client.Execute(request);
             //
        //     IRestResponse response = client.Execute(request);
-            Console.WriteLine(response.Content);
+          //  Console.WriteLine(response.Content);
             //QuickType.ProductConfigList pcl=QuickType.ProductConfigList
            // QuickType_configlist.TopLevel top = QuickType_configlist.TopLevel.FromJson(response.Content);
             //ConfigList cflist = JsonConvert.DeserializeObject<ConfigList>(response.Content);
