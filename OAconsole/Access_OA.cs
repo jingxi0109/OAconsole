@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -25,7 +26,12 @@ namespace OAconsole
             //   var respo = get_ConfigData("38659", Jsid);
             //      Console.WriteLine(respo.ToJson());
            // var res = 
-                GetConfigList(2);
+           var list=     GetConfigList(2);
+           foreach (var res in list.Result.List)
+            {
+                Console.WriteLine(res.ProductName);
+                Console.WriteLine(res.ProductDesc );
+            }
           //  Console.WriteLine(res.Result.Count);
         }
 
@@ -109,16 +115,17 @@ namespace OAconsole
             Console.WriteLine(code);
             request.AddParameter("undefined", "email=" + loginID + "&password=" + passcode + "&verycode=" + code, ParameterType.RequestBody);
             IRestResponse responselogin = client.Execute(request);
-            QuickType_login.Login login = QuickType_login.Login.FromJson(responselogin.Content);
-            token = login.Token;
+        //    QuickType_login.Login login = QuickType_login.Login.FromJson(responselogin.Content);
+            QT_logon.Logon logon = QT_logon.Logon.FromJson(responselogin.Content);
+            token = logon.Token;
             Console.WriteLine(responselogin.Content);
 
             return responselogin.Content.Contains("SUCCESS");
 
         }
-        public static ConfigList get_ConfigData(string config_code, string jstemp)
+        public static QT_Config.ConfigData get_ConfigData(string config_code, string jstemp)
         {
-            var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/get?token=undefined");
+            var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/get?token="+token);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Connection", "keep-alive");
@@ -134,7 +141,8 @@ namespace OAconsole
             request.AddParameter("undefined", "{\"product_config_id\":" + config_code + "}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 
-            OAconsole.ConfigList cflist = ConfigList.FromJson(response.Content);
+           // OAconsole.ConfigList cflist = ConfigList.FromJson(response.Content);
+            QT_Config.ConfigData cdlist = QT_Config.ConfigData.FromJson(response.Content);
             //Console.WriteLine(cflist.Result.ProductConfigCode);
             //foreach(var res in cflist.Result.ProductConfigDataList)
             //{
@@ -144,18 +152,13 @@ namespace OAconsole
             //{
             //    Console.WriteLine(res.PartName + "\t" + res.Quantity.ToString() + "\t" + res.PartCode);
             //}
-            return cflist;
+            return cdlist;
 
         }
-        public static ConfigList GetData()
-        {
-            OAconsole.ConfigList cflist = ConfigList.FromJson(File.ReadAllText("38659config.json"));
 
-            return cflist;
-        }
-        static QuickType.Quotation get_quotationData(string quota_code)
+        static QT_Quotaion.QuotationData get_quotationData(string quota_code)
         {
-            var client = new RestClient("https://oa.chinasupercloud.com/api/quotation/get?token=undefined&=");
+            var client = new RestClient("https://oa.chinasupercloud.com/api/quotation/get?token="+token);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Connection", "keep-alive");
@@ -171,13 +174,13 @@ namespace OAconsole
             request.AddParameter("undefined", "{\"quotation_id\": " + quota_code + "}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 
-            QuickType.Quotation quota = QuickType.Quotation.FromJson(response.Content);
+          //  QuickType.Quotation quota = QuickType.Quotation.FromJson(response.Content);
+            QT_Quotaion.QuotationData quotation = QT_Quotaion.QuotationData.FromJson(response.Content);
 
-
-            return quota;
+            return quotation;
 
         }
-        static QuickType_configlist.TopLevel GetConfigList(int page)
+        static QT_configlist.Configlist GetConfigList(int page)
         {
             //var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page");
             //var request = new RestRequest(Method.GET);
@@ -216,9 +219,10 @@ namespace OAconsole
        //     IRestResponse response = client.Execute(request);
             Console.WriteLine(response.Content);
             //QuickType.ProductConfigList pcl=QuickType.ProductConfigList
-            QuickType_configlist.TopLevel top = QuickType_configlist.TopLevel.FromJson(response.Content);
-
-            return top;
+           // QuickType_configlist.TopLevel top = QuickType_configlist.TopLevel.FromJson(response.Content);
+            //ConfigList cflist = JsonConvert.DeserializeObject<ConfigList>(response.Content);
+            QT_configlist.Configlist configlist = QT_configlist.Configlist.FromJson(response.Content);
+            return configlist;
         }
 
 
