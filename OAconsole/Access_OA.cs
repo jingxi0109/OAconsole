@@ -302,7 +302,7 @@ namespace OAconsole
             Console.WriteLine(fsi.Result.Record.PaymentItemList.Count);
             foreach( var res in fsi.Result.Record.PaymentItemList)
             {
-                Console.Write(res.CreatorName + "\t" + res.Amount + "\t" + res.PaymentItemTypeName+"\n");
+                Console.Write(res.CreatorName + "\t" +res.OwnerOrgName +"\t"+ res.Amount + "\t" + res.PaymentItemTypeName+"\n");
             }
             //
 
