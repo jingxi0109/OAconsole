@@ -27,19 +27,27 @@ namespace OAconsole
             Console.WriteLine("input the verify code.");
             Request_Login(Console.ReadLine());
 
-            FsiData("4967");
+            FsiData("22459");
+            FsiData("23259");
+            FsiData("23081");
+            FsiData("23001");
+            FsiData("21854");
+            FsiData("21856");
+            FsiData("23114");
+            FsiData("23217");
+            FsiData("23195");
             //   var respo = get_ConfigData("38659", Jsid);
             //      Console.WriteLine(respo.ToJson());
-           // var res = 
-           ////////////var list=     GetConfigList(2);
-           ////////////foreach (var res in list.Result.List)
-           //////////// {
-           ////////////     Console.WriteLine(res.ProductName);
-           ////////////     Console.WriteLine(res.ProductConfigId);
-           ////////////     Get_Config_details(res.ProductConfigId.ToString(), jsid);
-           //////////// //    Console.WriteLine(res.ProductDesc );
-           //////////// }
-          //  Console.WriteLine(res.Result.Count);
+            // var res = 
+            ////////////var list=     GetConfigList(2);
+            ////////////foreach (var res in list.Result.List)
+            //////////// {
+            ////////////     Console.WriteLine(res.ProductName);
+            ////////////     Console.WriteLine(res.ProductConfigId);
+            ////////////     Get_Config_details(res.ProductConfigId.ToString(), jsid);
+            //////////// //    Console.WriteLine(res.ProductDesc );
+            //////////// }
+            //  Console.WriteLine(res.Result.Count);
         }
 
         public static Bitmap Get_verycode()
@@ -282,12 +290,20 @@ namespace OAconsole
             request.AddHeader("Content-Type", "application/json");
             //  request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
          //   request.AddParameter("undefined", "{\"application_type\":" + code + ",\"record_id\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
-            request.AddParameter("undefined", "{\"application_type\":\"5\",\"record_id\":\""+code+"\"}", ParameterType.RequestBody);
+        //    request.AddParameter("undefined", "{\"application_type\":\"5\",\"record_id\":\""+code+"\"}", ParameterType.RequestBody);
             request.AddParameter("undefined", "{\"approval_id\":"+code+"}", ParameterType.RequestBody);
          
             //{"application_type":"5","record_id":"4967"}
             IRestResponse response = client.Execute(request);
-            Console.WriteLine(response.Content );
+          //  Console.WriteLine(response.Content);
+
+            QuickType.Fsi fsi = QuickType.Fsi.FromJson(response.Content);
+
+            Console.WriteLine(fsi.Result.Record.PaymentItemList.Count);
+            foreach( var res in fsi.Result.Record.PaymentItemList)
+            {
+                Console.Write(res.CreatorName + "\t" + res.Amount + "\t" + res.PaymentItemTypeName+"\n");
+            }
             //
 
         }

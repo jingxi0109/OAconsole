@@ -153,7 +153,7 @@ namespace QuickType
         public string OwnerName { get; set; }
 
         [JsonProperty("expense_amount")]
-        public double ExpenseAmount { get; set; }
+        public long ExpenseAmount { get; set; }
 
         [JsonProperty("expense_type")]
         public long ExpenseType { get; set; }
@@ -291,7 +291,7 @@ namespace QuickType
         public long CreatorId { get; set; }
 
         [JsonProperty("amount")]
-        public double Amount { get; set; }
+        public long Amount { get; set; }
 
         [JsonProperty("owner_email")]
         public string OwnerEmail { get; set; }
@@ -324,7 +324,7 @@ namespace QuickType
         public string CreatorOpenId { get; set; }
 
         [JsonProperty("invoice_no")]
-        public object InvoiceNo { get; set; }
+        public string InvoiceNo { get; set; }
 
         [JsonProperty("creator_mobile")]
         public string CreatorMobile { get; set; }
