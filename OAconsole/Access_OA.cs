@@ -27,15 +27,7 @@ namespace OAconsole
             Console.WriteLine("input the verify code.");
             Request_Login(Console.ReadLine());
 
-            FsiData("22459");
-            FsiData("23259");
-            FsiData("23081");
-            FsiData("23001");
-            FsiData("21854");
-            FsiData("21856");
-            FsiData("23114");
-            FsiData("23217");
-            FsiData("23195");
+            FSI_Test();
             //   var respo = get_ConfigData("38659", Jsid);
             //      Console.WriteLine(respo.ToJson());
             // var res = 
@@ -48,6 +40,18 @@ namespace OAconsole
             //////////// //    Console.WriteLine(res.ProductDesc );
             //////////// }
             //  Console.WriteLine(res.Result.Count);
+        }
+        public static void FSI_Test()
+        {
+            FsiData("22459");
+            FsiData("23259");
+            FsiData("23081");
+            FsiData("23001");
+            FsiData("21854");
+            FsiData("21856");
+            FsiData("23114");
+            FsiData("23217");
+            FsiData("23195");
         }
 
         public static Bitmap Get_verycode()
@@ -300,8 +304,10 @@ namespace OAconsole
             QuickType.Fsi fsi = QuickType.Fsi.FromJson(response.Content);
 
             Console.WriteLine(fsi.Result.Record.PaymentItemList.Count);
+            
             foreach( var res in fsi.Result.Record.PaymentItemList)
             {
+                
                 Console.Write(res.CreatorName + "\t" +res.OwnerOrgName +"\t"+ res.Amount + "\t" + res.PaymentItemTypeName+"\n");
             }
             //

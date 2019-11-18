@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="Logon" Height="165" Width="232">
     <Grid>
-        <Button x:Name="button" Content="Sign me up." HorizontalAlignment="Left" Margin="14,95,0,0" Click="button_Click" Height="19" VerticalAlignment="Top"/>
+        <Button x:Name="button" Content="Sign me up." HorizontalAlignment="Left" Margin="10,95,0,0" Click="button_Click" Height="19" VerticalAlignment="Top"/>
 
-        <Image x:Name="image"  HorizontalAlignment="Left" Height="22" Margin="10,8,0,0" VerticalAlignment="Top" Width="85" Loaded="image_Loaded" Opacity="0.9" OpacityMask="#FF1D421D"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextChanged="textBox_TextChanged"/>
-        <CheckBox x:Name="checkBox" Content="Logon" HorizontalAlignment="Left" Margin="105,60,0,0" VerticalAlignment="Top" Width="80" IsEnabled="False"/>
+        <Image x:Name="image"  HorizontalAlignment="Left" Height="44" Margin="10,8,0,0" VerticalAlignment="Top" Width="170" Loaded="image_Loaded" Opacity="0.9" OpacityMask="#FF1D421D"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="80" TextChanged="textBox_TextChanged"/>
+        <CheckBox x:Name="checkBox" Content="Logon" HorizontalAlignment="Left" Margin="135,59,0,0" VerticalAlignment="Top" Width="80" IsEnabled="False"/>
 
     </Grid>
 </Window>
