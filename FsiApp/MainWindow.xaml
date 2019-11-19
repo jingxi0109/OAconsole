@@ -8,7 +8,7 @@
         Title="MainWindow" Height="480" Width="1029" Loaded="Window_Loaded">
     <Grid ShowGridLines="True" Margin="0,0,10,0" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="280*"/>
+            <ColumnDefinition Width="280"/>
             <ColumnDefinition Width="739*"/>
         </Grid.ColumnDefinitions>
 
@@ -16,7 +16,7 @@
 
 
 
-        <Grid Margin="10,0,0,0" Grid.Column="0" HorizontalAlignment="Left" Width="145" Height="416" VerticalAlignment="Center">
+        <Grid Margin="10,10,0,0" Grid.Column="0" HorizontalAlignment="Left" Width="145" Height="315" VerticalAlignment="Top">
             <StackPanel Height="300" VerticalAlignment="Center">
                 <Label FontWeight="Bold" Content="ID 号"/>
                 <TextBox  x:Name="TxtRow" TextWrapping="Wrap" AcceptsReturn="True"
@@ -24,7 +24,7 @@
                 <Label x:Name="lbcount" Content="Lines" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
             </StackPanel>
         </Grid>
-        <Grid HorizontalAlignment="Left" Margin="155,10,0,0" Width="100" Height="416" VerticalAlignment="Top">
+        <Grid HorizontalAlignment="Left" Margin="155,10,0,0" Width="105" Height="192" VerticalAlignment="Top">
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <Image x:Name="verycode" Height="30" />
                 <TextBox  x:Name="txtverycode" Height="30"/>
@@ -36,6 +36,19 @@
 
         </Grid>
 
-        <DataGrid x:Name="dataGrid" Margin="20,0,14,0" Grid.Column="1" HeadersVisibility="All"/>
+        <DataGrid x:Name="dataGrid" Margin="20,0,14,0" Grid.Column="1" HeadersVisibility="All">
+            <!--<DataGrid ItemsSource=""></DataGrid>-->
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DockPanel Background="LawnGreen">
+                        <Grid>
+                            <DataGrid ItemsSource="{Binding PaymentItemList}"></DataGrid>
+                        </Grid>
+                        
+                    </DockPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>  
+        </DataGrid>
+       
     </Grid>
 </Window>

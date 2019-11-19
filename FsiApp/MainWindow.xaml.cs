@@ -68,6 +68,7 @@ namespace FsiApp
         private void btnFill_Click(object sender, RoutedEventArgs e)
         {
             List<QuickType.Record> records = new List<QuickType.Record>();
+            //this.dataGrid.ItemsSource = records;
             if(this.check_Logon.IsChecked.Value)
             {
                 for (int i = 0; i < this.TxtRow.LineCount; i++)
@@ -87,7 +88,7 @@ namespace FsiApp
                     this.dataGrid.ItemsSource = records;
                 }
             }
-          
+
         }
         public static bool IsNumeric(string value)
         {
