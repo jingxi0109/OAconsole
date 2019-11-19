@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FsiApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="480" Width="1029" Loaded="Window_Loaded">
+    <Grid ShowGridLines="True" Margin="0,0,10,0" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280*"/>
+            <ColumnDefinition Width="739*"/>
+        </Grid.ColumnDefinitions>
 
+
+
+
+
+        <Grid Margin="10,0,0,0" Grid.Column="0" HorizontalAlignment="Left" Width="145" Height="416" VerticalAlignment="Center">
+            <StackPanel Height="300" VerticalAlignment="Center">
+                <Label FontWeight="Bold" Content="ID 号"/>
+                <TextBox  x:Name="TxtRow" TextWrapping="Wrap" AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"  Width="100" Height="235" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" />
+                <Label x:Name="lbcount" Content="Lines" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
+            </StackPanel>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Margin="155,10,0,0" Width="100" Height="416" VerticalAlignment="Top">
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <Image x:Name="verycode" Height="30" />
+                <TextBox  x:Name="txtverycode" Height="30"/>
+                <Button x:Name="btnSubmit" Content="访问OA" Height="20" Click="btnSubmit_Click"/>
+                <Button x:Name="refVeryCode" Content="更新验证码" Height="20" Click="refVeryCode_Click"/>
+                <CheckBox x:Name="check_Logon"  Content="OA 登录状态" IsEnabled="False"   />
+                <Button x:Name="btnFill" Content="Fill Data" Click="btnFill_Click"    />
+            </StackPanel>
+
+        </Grid>
+
+        <DataGrid x:Name="dataGrid" Margin="20,0,14,0" Grid.Column="1" HeadersVisibility="All"/>
     </Grid>
 </Window>

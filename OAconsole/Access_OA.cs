@@ -313,6 +313,45 @@ namespace OAconsole
             //
 
         }
+        public static QuickType.Record FsiData_Frm(string code)
+        {
+            //  var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page?token=" + token);
+            var client = new RestClient("https://oa.chinasupercloud.com/api/approval/get?token=" + token);
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            //request.AddHeader("Cookie", "JSESSIONID=0E4B91133F74D631E898008614F829CB; //loginName="chenjx@chinasupercloud.com"");
+            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + LoginID + "\"; token=" + token);
+            request.AddHeader("Content-Length", "43");
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", "oa.chinasupercloud.com");
+            // request.AddHeader("Postman-Token", "d48a4ffd-3297-44d7-9d85-00b37454874e,54a0c7dc-f259-415f-8812-3550161514fb");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
+            request.AddHeader("Content-Type", "application/json");
+            //  request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            //   request.AddParameter("undefined", "{\"application_type\":" + code + ",\"record_id\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
+            //    request.AddParameter("undefined", "{\"application_type\":\"5\",\"record_id\":\""+code+"\"}", ParameterType.RequestBody);
+            request.AddParameter("undefined", "{\"approval_id\":" + code + "}", ParameterType.RequestBody);
+
+            //{"application_type":"5","record_id":"4967"}
+            IRestResponse response = client.Execute(request);
+            //  Console.WriteLine(response.Content);
+
+            QuickType.Fsi fsi = QuickType.Fsi.FromJson(response.Content);
+
+            return fsi.Result.Record;
+       //     Console.WriteLine(fsi.Result.Record.PaymentItemList.Count);
+
+            //foreach (var res in fsi.Result.Record.PaymentItemList)
+            //{
+
+            //    Console.Write(res.CreatorName + "\t" + res.OwnerOrgName + "\t" + res.Amount + "\t" + res.PaymentItemTypeName + "\n");
+            //}
+            //
+
+        }
     }
 
 
