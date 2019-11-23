@@ -46,15 +46,26 @@ namespace WCore
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            OAconsole.Access_OA.LoginID = this.txt_username.Text;
+            OAconsole.Access_OA.Passcode = this.txt_passcode.Password ;
             this.checkBox.IsChecked = bool.Parse(OAconsole.Access_OA.Request_Login(this.textBox.Text).ToString());
 
             this.Title = OAconsole.Access_OA.Jsid;
             MainWindow.Jsd = OAconsole.Access_OA.Jsid;
+            if(this.Title.Length>3)
+            {
+                this.Close();
+            }
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void btn_ref_verycode_Click(object sender, RoutedEventArgs e)
+        {
+            image_Loaded(sender, e);
         }
     }
 }

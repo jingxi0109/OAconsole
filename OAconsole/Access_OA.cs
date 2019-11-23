@@ -20,6 +20,7 @@ namespace OAconsole
         public static string Token { get => token; }
         public static string LoginID { get => loginID; set => loginID = value; }
         public static string Passcode { get => passcode; set => passcode = value; }
+        
 
         public static void Test_index()
         {

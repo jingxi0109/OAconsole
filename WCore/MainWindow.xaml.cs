@@ -43,7 +43,7 @@ namespace WCore
             ////this.image. = OAconsole.Access_OA.get_verycode();
            
         }
-       static  string jsd;
+       static  string jsd="";
 
         public static string Jsd { get => jsd; set => jsd = value; }
 
@@ -51,7 +51,14 @@ namespace WCore
         {
             LogoFrm logoFrm = new LogoFrm();
             logoFrm.ShowDialog();
-            this.Title = Jsd;
+            try
+            {
+                this.Title = Jsd;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message+"\n login failed. ");
+            }
 
             if(jsd.Length>3)
             {
@@ -60,7 +67,7 @@ namespace WCore
             }
             else
             {
-                MessageBox.Show("login failed. ");
+                MessageBox.Show("登录失败 ");
             }
           
         }
@@ -78,6 +85,15 @@ namespace WCore
         private void button_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (jsd == "")
+            {
+                // go to Login.
+                btn_Click(sender, e);
+            }
         }
     }
 }

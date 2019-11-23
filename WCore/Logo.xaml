@@ -5,13 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WCore"
         mc:Ignorable="d"
-        Title="Logon" Height="165" Width="232">
+        Title="Logon" Height="334" Width="279" ResizeMode="NoResize">
     <Grid>
-        <Button x:Name="button" Content="Sign me up." HorizontalAlignment="Left" Margin="10,95,0,0" Click="button_Click" Height="19" VerticalAlignment="Top"/>
+        <StackPanel HorizontalAlignment="Center" Width="231" Margin="0,10,0,10">
+          
+            <CheckBox x:Name="checkBox" Content="登录状态" Width="80" IsEnabled="False" RenderTransformOrigin="1.875,2.368"/>
+        
+            <Label>用户名</Label>
+            <TextBox x:Name="txt_username" Text="chenjx@chinasupercloud.com" TextWrapping="Wrap" Width="220"/>
+            <Label>密码</Label>
+            <!--<TextBox x:Name="txt_passcode" Text="" TextWrapping="Wrap" Width="120"/>-->
+            <PasswordBox  Width="220" 
+         Name="txt_passcode" 
+         Background="LightBlue" Foreground="DarkBlue" 
+         MaxLength="25" PasswordChar="*" 
+         />
 
-        <Image x:Name="image"  HorizontalAlignment="Left" Height="44" Margin="10,8,0,0" VerticalAlignment="Top" Width="170" Loaded="image_Loaded" Opacity="0.9" OpacityMask="#FF1D421D"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="80" TextChanged="textBox_TextChanged"/>
-        <CheckBox x:Name="checkBox" Content="Logon" HorizontalAlignment="Left" Margin="135,59,0,0" VerticalAlignment="Top" Width="80" IsEnabled="False"/>
+            <Image x:Name="image" Height="44" Width="135" Loaded="image_Loaded" Opacity="0.9" OpacityMask="#FF1D421D"/>
+            <Label>验证码</Label>
+            <TextBox x:Name="textBox" TextWrapping="Wrap" Width="135" TextChanged="textBox_TextChanged"></TextBox>
+            <Label></Label>
+            <Button x:Name="button" Content="登录OA" Click="button_Click" Height="19" Width="91"/>
+            <Label></Label>
+            <Button x:Name="btn_ref_verycode" Content="更新验证码" Click="btn_ref_verycode_Click" Width="91"    ></Button>
+        </StackPanel>
 
     </Grid>
 </Window>
