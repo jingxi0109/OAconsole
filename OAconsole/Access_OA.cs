@@ -211,6 +211,74 @@ namespace OAconsole
             return sc;
 
         }
+        public static QT_configbuilder.Configbuilder Get_Config_full(string config_code, string jstemp)
+        {
+            string code = Convert_Configid(config_code);
+            var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/get?token=" + token);
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            request.AddHeader("Cookie", "JSESSIONID=" + jstemp + "; loginName=\"" + LoginID + "\"");
+            request.AddHeader("Content-Length", "27");
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", "oa.chinasupercloud.com");
+            request.AddHeader("Postman-Token", "6a9c2334-a84e-4273-94b4-e08d175736b3,59765b29-c665-4b9e-8946-6746e5aac65c");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.18.0");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("undefined", "{\"product_config_id\":" + code + "}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+
+            // OAconsole.ConfigList cflist = ConfigList.FromJson(response.Content);
+            // QT_Config.ConfigData cdlist = QT_Config.ConfigData.FromJson(response.Content);
+            QT_configbuilder.Configbuilder cgf = QT_configbuilder.Configbuilder.FromJson(response.Content);
+            //Console.WriteLine(cflist.Result.ProductConfigCode);
+            //foreach(var res in cflist.Result.ProductConfigDataList)
+            //{
+            //    Console.WriteLine(res.PartName+"\t"+res.Quantity.ToString()+"\t"+res.PartCode);
+            //}
+            //foreach (var res in cflist.Result.PlatformPartList)
+            //{
+            //    Console.WriteLine(res.PartName + "\t" + res.Quantity.ToString() + "\t" + res.PartCode);
+            //}
+
+            //OAconsole.Model.Srv_Config sc = new Model.Srv_Config();
+            //sc.ProductPlatform = cgf.Result.ProductName;
+            //sc.Token = cgf.Token;
+            //sc.Part_List = new System.Collections.Generic.List<Model.PartList>();
+
+            //foreach (var r in cgf.Result.ProductConfigDataList)
+            //{
+            //    OAconsole.Model.PartList list = new Model.PartList();
+            //    list.Notes = r.Notes;
+            //    list.PartCode = r.PartCode;
+            //    list.PartId = r.PartId;
+            //    list.PartName = r.PartName;
+            //    list.PartTypeName = r.PartTypeName;
+            //    list.ProductId = r.ProductId.ToString();
+            //    list.SupplierModel = r.SupplierModel;
+            //    list.Quantity = r.Quantity;
+            //    sc.Part_List.Add(list);
+
+            //}
+            //foreach (var s in cgf.Result.PlatformPartList)
+            //{
+            //    OAconsole.Model.PartList list = new Model.PartList();
+            //    list.Notes = s.Notes;
+            //    list.PartCode = s.PartCode;
+            //    list.PartId = s.PartId;
+            //    list.PartName = s.PartName;
+            //    list.PartTypeName = s.PartTypeName;
+            //    list.ProductId = s.ProductPlatformId;
+            //    list.Quantity = s.Quantity;
+            //    list.SupplierModel = s.SupplierModel;
+            //    sc.Part_List.Add(list);
+            //}
+
+            return cgf;
+
+        }
         static string Convert_Configid(string id)
         {
 

@@ -79,6 +79,9 @@ namespace WCore
      cd=    OAconsole.Access_OA.Get_Config_details(this.textBox.Text, this.Title);
             this.dataGrid.ItemsSource = cd.Part_List;//.ProductConfigDataList;//Result.//OptionalPartList;//ProductConfigDataList;
                                                      //  this.dg2.ItemsSource = cd.Result.PlatformPartList;
+            QT_configbuilder.Configbuilder configbuilder;
+            configbuilder = OAconsole.Access_OA.Get_Config_full(this.textBox.Text, this.Title);
+            this.listVieww.ItemsSource = configbuilder.Result.OptionalPartList ;
             this.label.Content = cd.ProductPlatform;
         }
 

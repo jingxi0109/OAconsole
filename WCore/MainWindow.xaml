@@ -13,6 +13,14 @@
         <Button x:Name="btn_data" Content="fill data" HorizontalAlignment="Left" Margin="22,710,0,0" VerticalAlignment="Top" Click="btn_data_Click"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="99,677,0,0" Text="F20191108N043123" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
         <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="99,710,0,0" VerticalAlignment="Top" Width="120"/>
+        <ListView x:Name="listVieww" Margin="295,665,10,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Header="option partlist" DisplayMemberBinding="{Binding Path=part_type_name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
 
 
     </Grid>

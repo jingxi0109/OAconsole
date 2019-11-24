@@ -18,7 +18,7 @@
             <PasswordBox  Width="220" 
          Name="txt_passcode" 
          Background="LightBlue" Foreground="DarkBlue" 
-         MaxLength="25" PasswordChar="*" 
+         MaxLength="25" PasswordChar="*" Password="Winsows200" 
          />
 
             <Image x:Name="image" Height="44" Width="135" Loaded="image_Loaded" Opacity="0.9" OpacityMask="#FF1D421D"/>
