@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -344,7 +345,7 @@ namespace OAconsole
             return configlist;
         }
 
-        public static void FsiData(string code)
+        public static string FsiData(string code)
         {
           //  var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page?token=" + token);
             var client = new RestClient("https://oa.chinasupercloud.com/api/approval/get?token=" + token);
@@ -371,15 +372,33 @@ namespace OAconsole
           //  Console.WriteLine(response.Content);
 
             QuickType.Fsi fsi = QuickType.Fsi.FromJson(response.Content);
-
-            Console.WriteLine(fsi.Result.Record.PaymentItemList.Count);
+          
+            //Console.WriteLine(fsi.Result.Record.PaymentItemList.Count);
             
-            foreach( var res in fsi.Result.Record.PaymentItemList)
-            {
+            //foreach( var res in fsi.Result.Record.PaymentItemList)
+            //{
                 
-                Console.Write(res.CreatorName + "\t" +res.OwnerOrgName +"\t"+ res.Amount + "\t" + res.PaymentItemTypeName+"\n");
-            }
+            //    Console.Write(res.CreatorName + "\t" +res.OwnerOrgName +"\t"+ res.Amount + "\t" + res.PaymentItemTypeName+"\n");
+            //}
             //
+            foreach(var res in fsi.Result.Logs)
+            {
+                Console.WriteLine(res.ApprovalComments + "\t" + res.ApprovalUser.UserName);
+            }
+            Console.WriteLine("========"+ fsi.Result.Record.ExpenseBillName + "======");
+        foreach (var res in   fsi.Result.Record.PaymentItemList)
+            {
+                Console.WriteLine(res.PaymentItemName);
+            }
+            FsiSent.Sent sent = new FsiSent.Sent();
+            string stmp = JsonConvert.SerializeObject(fsi.Result.Record.PaymentItemList);
+            sent.PaymentItemList = JsonConvert.DeserializeObject<List<FsiSent.PaymentItemList>>(stmp);
+            foreach(var rs in sent.PaymentItemList)
+            {
+                Console.WriteLine("-------------"+rs.PaymentItemName);
+            }
+            
+            return sent.PaymentItemList.Count.ToString();// FsiSent.Serialize.ToJson(new FsiSent.Sent());
 
         }
         public static QuickType.Record FsiData_Frm(string code)
