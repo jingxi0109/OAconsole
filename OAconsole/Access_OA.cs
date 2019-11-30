@@ -604,7 +604,7 @@ namespace OAconsole
             //   request.AddParameter("undefined", "{\"application_type\":" + code + ",\"record_id\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
             //    request.AddParameter("undefined", "{\"application_type\":\"5\",\"record_id\":\""+code+"\"}", ParameterType.RequestBody);
             //       request.AddParameter("undefined", "{\"approval_id\":" + code + "}", ParameterType.RequestBody);
-            request.AddParameter("undefined", "{\"expense_bill_id\":"+code+"}", ParameterType.RequestBody);
+            request.AddParameter("undefined", "{\"expense_bill_id\":" +code+"}", ParameterType.RequestBody);
             //{"application_type":"5","record_id":"4967"}
             IRestResponse response = client.Execute(request);
 

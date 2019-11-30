@@ -9,8 +9,8 @@
     <Grid ShowGridLines="True" Margin="0,0,10,0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280"/>
-            <ColumnDefinition Width="195*"/>
-            <ColumnDefinition Width="544*"/>
+            <ColumnDefinition Width="360*"/>
+            <ColumnDefinition Width="379*"/>
         </Grid.ColumnDefinitions>
 
 

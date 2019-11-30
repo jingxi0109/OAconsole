@@ -92,6 +92,7 @@ namespace FsiApp
         }
         private void btn_Approval(object sender, RoutedEventArgs e)
         {
+            this.listBox.Items.Clear();
             if (this.check_Logon.IsChecked.Value)
             {
                 for (int i = 0; i < this.TxtRow.LineCount; i++)
@@ -106,7 +107,7 @@ namespace FsiApp
                     }
 
                 }
-            
+                MessageBox.Show("批复完成");
             }
         }
         private void btnPay_Click(object sender, RoutedEventArgs e)
@@ -120,13 +121,23 @@ namespace FsiApp
                     a = a.Replace("\r\n", "");
                     if (IsNumeric(a))
                     {
-                        var res = OAconsole.Access_OA.Payed(a);//FsiData_Frm(a);
-                        // MessageBox.Show(res.OwnerName);//.ToString());
-                        this.listBox.Items.Add(res);
+                        try
+                        {
+                            var rea = OAconsole.Access_OA.FsiData_Frm(a);
+                               var res = OAconsole.Access_OA.Payed(rea.ExpenseBillId.ToString() );//FsiData_Frm(a);
+                            // MessageBox.Show(res.OwnerName);//.ToString());
+                            this.listBox.Items.Add(res);
+                   //         this.listBox.Items.Add(rea.ExpenseBillId.ToString());
+                        }
+                        catch(Exception ex)
+                        {
+                            this.listBox.Items.Add(a.ToString()+"\t"+ex.Message);
+                        }
+                      
                     }
 
                 }
-
+                MessageBox.Show("支付完成");
             }
         }
         public static bool IsNumeric(string value)
