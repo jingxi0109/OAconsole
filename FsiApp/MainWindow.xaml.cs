@@ -90,6 +90,45 @@ namespace FsiApp
             }
 
         }
+        private void btn_Approval(object sender, RoutedEventArgs e)
+        {
+            if (this.check_Logon.IsChecked.Value)
+            {
+                for (int i = 0; i < this.TxtRow.LineCount; i++)
+                {
+                    string a = this.TxtRow.GetLineText(i);
+                    a = a.Replace("\r\n", "");
+                    if (IsNumeric(a))
+                    {
+                        var res = OAconsole.Access_OA.AutoAppoval(a);//FsiData_Frm(a);
+                        // MessageBox.Show(res.OwnerName);//.ToString());
+                        this.listBox.Items.Add(res);
+                    }
+
+                }
+            
+            }
+        }
+        private void btnPay_Click(object sender, RoutedEventArgs e)
+        {
+            this.listBox.Items.Clear();
+            if (this.check_Logon.IsChecked.Value)
+            {
+                for (int i = 0; i < this.TxtRow.LineCount; i++)
+                {
+                    string a = this.TxtRow.GetLineText(i);
+                    a = a.Replace("\r\n", "");
+                    if (IsNumeric(a))
+                    {
+                        var res = OAconsole.Access_OA.Payed(a);//FsiData_Frm(a);
+                        // MessageBox.Show(res.OwnerName);//.ToString());
+                        this.listBox.Items.Add(res);
+                    }
+
+                }
+
+            }
+        }
         public static bool IsNumeric(string value)
         {
             Regex objNotNumberPattern = new Regex("[^0-9.-]");
@@ -104,5 +143,9 @@ namespace FsiApp
                 !objTwoMinusPattern.IsMatch(value) &&
                 objNumberPattern.IsMatch(value);
         }
+
+   
+
+  
     }
 }

@@ -9,7 +9,8 @@
     <Grid ShowGridLines="True" Margin="0,0,10,0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280"/>
-            <ColumnDefinition Width="739*"/>
+            <ColumnDefinition Width="195*"/>
+            <ColumnDefinition Width="544*"/>
         </Grid.ColumnDefinitions>
 
 
@@ -32,11 +33,13 @@
                 <Button x:Name="refVeryCode" Content="更新验证码" Height="20" Click="refVeryCode_Click"/>
                 <CheckBox x:Name="check_Logon"  Content="OA 登录状态" IsEnabled="False"   />
                 <Button x:Name="btnFill" Content="Fill Data" Click="btnFill_Click"    />
+                <Button x:Name="btnAutoApproval" Content="批复报销" Click="btn_Approval"/>
+                <Button x:Name="btnPay" Content="支付" Click="btnPay_Click"/>
             </StackPanel>
 
         </Grid>
 
-        <DataGrid x:Name="dataGrid" Margin="20,0,14,0" Grid.Column="1" HeadersVisibility="All">
+        <DataGrid x:Name="dataGrid" Margin="55,0,14,0" Grid.Column="2" HeadersVisibility="All" Height="465" VerticalAlignment="Center">
             <!--<DataGrid ItemsSource=""></DataGrid>-->
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
@@ -44,11 +47,12 @@
                         <Grid>
                             <DataGrid ItemsSource="{Binding PaymentItemList}"></DataGrid>
                         </Grid>
-                        
+
                     </DockPanel>
                 </DataTemplate>
-            </DataGrid.RowDetailsTemplate>  
+            </DataGrid.RowDetailsTemplate>
         </DataGrid>
-       
+        <ListBox x:Name="listBox" Grid.Column="1" Margin="25,30,25,20"/>
+
     </Grid>
 </Window>

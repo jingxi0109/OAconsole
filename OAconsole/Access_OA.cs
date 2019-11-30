@@ -45,21 +45,21 @@ namespace OAconsole
         }
         public static void FSI_Test()
         {
-            string a = FsiData("24381");
-              Console.WriteLine(a );
-            Fsi_BatAppapproval(a);
+         //   string a = FsiData("24381");
+         // //    Console.WriteLine(a );
+         //   Fsi_BatAppapproval(a);
 
-            string b = FsiData("22432");
-            Console.WriteLine(b);
-            Fsi_BatAppapproval(b);
+         //   string b = FsiData("22432");
+         ////   Console.WriteLine(b);
+         //   Fsi_BatAppapproval(b);
 
-            string c = FsiData("24360");
-            Console.WriteLine(c);
-            Fsi_BatAppapproval(c);
+         //   string c = FsiData("24360");
+         // //  Console.WriteLine(c);
+         //   Fsi_BatAppapproval(c);
 
-            string d = FsiData("24270");
-            Console.WriteLine(d);
-            Fsi_BatAppapproval(d);
+         //   string d = FsiData("24270");
+         ////   Console.WriteLine(d);
+         //   Fsi_BatAppapproval(d);
             //       Console.WriteLine(FsiData("24655"));
             //     Console.WriteLine(FsiData("24111"));
             //     Console.WriteLine(FsiData("23732"));
@@ -69,6 +69,14 @@ namespace OAconsole
             //Fsi_BatAppapproval("24111");
             //Fsi_BatAppapproval("23732");
             //Fsi_BatAppapproval("20549");
+        }
+        public static string AutoAppoval(string id)
+        {
+            string ss = "";
+            string tmp = FsiData(id);
+            ss=Fsi_BatAppapproval(tmp);
+
+            return ss;
         }
 
         public static Bitmap Get_verycode()
@@ -455,7 +463,7 @@ namespace OAconsole
             s.ApplicationContents = fsi.Result.Record.ApplicationContents;
             s.ReceiveStatus = fsi.Result.Record.ReceiveStatus;
             s.BeforehandBillNo = fsi.Result.Record.BeforehandBillNo;
-            s.ApprovalStatus = fsi.Result.Record.ApprovalStatus;
+            s.ApprovalStatus = long.Parse("2");//fsi.Result.Record.ApprovalStatus;
 
             s.PaymentItemList = JsonConvert.DeserializeObject<List<FsiSent.PaymentItemList>>(JsonConvert.SerializeObject(fsi.Result.Record.PaymentItemList));
 
@@ -543,7 +551,7 @@ namespace OAconsole
         }
 
 
-          public static void  Fsi_BatAppapproval(string Json_code)
+          public static string   Fsi_BatAppapproval(string Json_code)
         {
             //  var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page?token=" + token);
             // var client = new RestClient("https://oa.chinasupercloud.com/api/approval/get?token=" + token);
@@ -568,20 +576,42 @@ namespace OAconsole
             request.AddParameter("undefined", Json_code, ParameterType.RequestBody);
             //{"application_type":"5","record_id":"4967"}
             IRestResponse response = client.Execute(request);
-            //  Console.WriteLine(response.Content);
-             Console.WriteLine(response.Content);
-            //QuickType.Fsi fsi = QuickType.Fsi.FromJson(response.Content);
 
-          //  return fsi.Result.Record;
-       //     Console.WriteLine(fsi.Result.Record.PaymentItemList.Count);
+           QuickTypeRes .Res re= QuickTypeRes.Res.FromJson(response.Content);
 
-            //foreach (var res in fsi.Result.Record.PaymentItemList)
-            //{
+            return re.ResultType +"\t"+re.Result.ApprovalId +"\t"+re.Result.ApplicationContents+"\t"+re.Result.ApplicationUserName ;
+        }
+        public static string Payed(string code)
+        {
+            //  var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page?token=" + token);
+            // var client = new RestClient("https://oa.chinasupercloud.com/api/approval/get?token=" + token);
+         //   var client = new RestClient("https://oa.chinasupercloud.com/api/approval/save?token=" + "undefined");//token);
+            var client = new RestClient("https://oa.chinasupercloud.com/api/expenseBill/payed?token=undefined");//token);
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            //request.AddHeader("Cookie", "JSESSIONID=0E4B91133F74D631E898008614F829CB; //loginName="chenjx@chinasupercloud.com"");
+            request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + LoginID + "\"; token=" + token);
+            //request.AddHeader("Content-Length", "7059");
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", "oa.chinasupercloud.com");
+            // request.AddHeader("Postman-Token", "d48a4ffd-3297-44d7-9d85-00b37454874e,54a0c7dc-f259-415f-8812-3550161514fb");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.19.0");
+            request.AddHeader("Content-Type", "application/json");
+            //  request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            //   request.AddParameter("undefined", "{\"application_type\":" + code + ",\"record_id\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
+            //    request.AddParameter("undefined", "{\"application_type\":\"5\",\"record_id\":\""+code+"\"}", ParameterType.RequestBody);
+            //       request.AddParameter("undefined", "{\"approval_id\":" + code + "}", ParameterType.RequestBody);
+            request.AddParameter("undefined", "{\"expense_bill_id\":"+code+"}", ParameterType.RequestBody);
+            //{"application_type":"5","record_id":"4967"}
+            IRestResponse response = client.Execute(request);
 
-            //    Console.Write(res.CreatorName + "\t" + res.OwnerOrgName + "\t" + res.Amount + "\t" + res.PaymentItemTypeName + "\n");
-            //}
-            //
-
+            //QuickTypeRes.Res re = QuickTypeRes.Res.FromJson(response.Content);
+           QuickType_pay.Pay pay= QuickType_pay.Pay.FromJson(response.Content);
+            //   return re.ResultType + "\t" + re.Result.ApprovalId + "\t" + re.Result.ApplicationContents + "\t" + re.Result.ApplicationUserName;
+            return pay.ResultType +"\t"+pay.Result.BillNo+"\t"+pay.Result.CreatorName ;
         }
     }
 
