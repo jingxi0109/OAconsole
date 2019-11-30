@@ -45,15 +45,30 @@ namespace OAconsole
         }
         public static void FSI_Test()
         {
-            FsiData("22459");
-            FsiData("23259");
-            FsiData("23081");
-            FsiData("23001");
-            FsiData("21854");
-            FsiData("21856");
-            FsiData("23114");
-            FsiData("23217");
-            FsiData("23195");
+            string a = FsiData("24381");
+              Console.WriteLine(a );
+            Fsi_BatAppapproval(a);
+
+            string b = FsiData("22432");
+            Console.WriteLine(b);
+            Fsi_BatAppapproval(b);
+
+            string c = FsiData("24360");
+            Console.WriteLine(c);
+            Fsi_BatAppapproval(c);
+
+            string d = FsiData("24270");
+            Console.WriteLine(d);
+            Fsi_BatAppapproval(d);
+            //       Console.WriteLine(FsiData("24655"));
+            //     Console.WriteLine(FsiData("24111"));
+            //     Console.WriteLine(FsiData("23732"));
+            //    Console.WriteLine(FsiData("20549"));
+            //Fsi_BatAppapproval("24883.");
+            //Fsi_BatAppapproval("24655");
+            //Fsi_BatAppapproval("24111");
+            //Fsi_BatAppapproval("23732");
+            //Fsi_BatAppapproval("20549");
         }
 
         public static Bitmap Get_verycode()
@@ -381,25 +396,111 @@ namespace OAconsole
             //    Console.Write(res.CreatorName + "\t" +res.OwnerOrgName +"\t"+ res.Amount + "\t" + res.PaymentItemTypeName+"\n");
             //}
             //
-            foreach(var res in fsi.Result.Logs)
-            {
-                Console.WriteLine(res.ApprovalComments + "\t" + res.ApprovalUser.UserName);
-            }
-            Console.WriteLine("========"+ fsi.Result.Record.ExpenseBillName + "======");
-        foreach (var res in   fsi.Result.Record.PaymentItemList)
-            {
-                Console.WriteLine(res.PaymentItemName);
-            }
-            FsiSent.Sent sent = new FsiSent.Sent();
-            string stmp = JsonConvert.SerializeObject(fsi.Result.Record.PaymentItemList);
-            sent.PaymentItemList = JsonConvert.DeserializeObject<List<FsiSent.PaymentItemList>>(stmp);
-            foreach(var rs in sent.PaymentItemList)
-            {
-                Console.WriteLine("-------------"+rs.PaymentItemName);
-            }
-            
-            return sent.PaymentItemList.Count.ToString();// FsiSent.Serialize.ToJson(new FsiSent.Sent());
+        //    foreach(var res in fsi.Result.Logs)
+        //    {
+        //        Console.WriteLine(res.ApprovalComments + "\t" + res.ApprovalUser.UserName);
+        //    }
+        //    Console.WriteLine("========"+ fsi.Result.Record.ExpenseBillName + "======");
+        //foreach (var res in   fsi.Result.Record.PaymentItemList)
+        //    {
+        //        Console.WriteLine(res.PaymentItemName);
+        //    }
+           
+            //foreach(var rs in sent.PaymentItemList)
+            //{
+            //    Console.WriteLine("-------------"+rs.PaymentItemName);
+            //}
 
+            FsiSent.Sent sent = Covert_From_fsi(fsi);
+
+
+            return FsiSent.Serialize.ToJson(sent);//sent.PaymentItemList.Count.ToString();// FsiSent.Serialize.ToJson(new FsiSent.Sent());
+
+        }
+        static string isNullString(object tmp)
+        {
+            if(tmp==null)
+            {
+                return "";
+            }
+            else
+            {
+                return tmp.ToString();
+            }
+          
+        }
+        public static FsiSent.Sent Covert_From_fsi(QuickType.Fsi fsi)
+        {
+            FsiSent.Sent s = new FsiSent.Sent();
+
+            s.OrgName = fsi.Result.Record.OrgName;
+            s.OwnerName = fsi.Result.Record.OwnerName;
+            s.ExpenseAmount = fsi.Result.Record.ExpenseAmount;
+            s.ExpenseType = fsi.Result.Record.ExpenseType;
+            s.OperatorId = fsi.Result.Record.OperatorId;//long.Parse("160");
+            s.OwnerOrgName = fsi.Result.Record.OwnerOrgName;
+            s.ExpenseNotes = "";// isNullString(fsi.Result.Record.ExpenseNotes);
+            s.BeforehandId = fsi.Result.Record.BeforehandId;
+            s.CurrentApprovalUserName = fsi.Result.Record.CurrentApprovalUserName;
+            s.OwnerMobile = fsi.Result.Record.OwnerMobile;
+            s.Corporation = fsi.Result.Record.Corporation;
+            s.PaymentStatus = fsi.Result.Record.PaymentStatus;
+            s.OwnerEmail = fsi.Result.Record.OwnerEmail;
+            s.ExpenseBillName = fsi.Result.Record.ExpenseBillName;
+            s.OwnerOpenId = fsi.Result.Record.OwnerOpenId;
+            s.CreatorOpenId = fsi.Result.Record.CreatorOpenId;
+            s.BillNo = fsi.Result.Record.BillNo;
+            s.BeforehandName = fsi.Result.Record.BeforehandName;
+            s.ApplicationTime = fsi.Result.Record.ApplicationTime.ToString();
+            s.ApplicationContents = fsi.Result.Record.ApplicationContents;
+            s.ReceiveStatus = fsi.Result.Record.ReceiveStatus;
+            s.BeforehandBillNo = fsi.Result.Record.BeforehandBillNo;
+            s.ApprovalStatus = fsi.Result.Record.ApprovalStatus;
+
+            s.PaymentItemList = JsonConvert.DeserializeObject<List<FsiSent.PaymentItemList>>(JsonConvert.SerializeObject(fsi.Result.Record.PaymentItemList));
+
+
+            s.CreatorEmail = fsi.Result.Record.CreatorEmail;
+            s.InvoiceNumber = fsi.Result.Record.InvoiceNumber;
+            s.ApprovalId = fsi.Result.Record.ApprovalId;
+            s.CreatorId = fsi.Result.Record.CreatorId;
+            s.OrgId = fsi.Result.Record.OrgId;
+            s.IsDeleted = fsi.Result.Record.IsDeleted;
+            s.UpdateTime = fsi.Result.Record.UpdateTime.ToString();
+            s.CreateTime = fsi.Result.Record.CreateTime.ToString();
+            s.OwnerId = fsi.Result.Record.OwnerId;
+            s.CreatorId = fsi.Result.Record.CreatorId;
+            s.ExpenseBillId = fsi.Result.Record.ExpenseBillId;
+            s.CreatorMobile = fsi.Result.Record.CreatorMobile;
+            s.ApprovalComments = ".同意.";// fsi.Result.ApprovalComments;
+            s.ApplicationType = fsi.Result.ApplicationType;
+
+
+
+            s.Logs = JsonConvert.DeserializeObject<List<FsiSent.Log>>(JsonConvert.SerializeObject(fsi.Result.Logs));
+
+          //  s.ApplicationUser = fsi.Result.ApplicationUser;
+            s.ApplicationUser= JsonConvert.DeserializeObject<FsiSent.User>(JsonConvert.SerializeObject(fsi.Result.ApplicationUser));
+            s.IsFinanceFlg = fsi.Result.IsFinanceFlg;
+            s.CurrentApplicationTime = fsi.Result.CurrentApplicationTime.ToString();
+            s.RecordId = fsi.Result.RecordId;
+
+
+            s.Record = JsonConvert.DeserializeObject<FsiSent.Record>(JsonConvert.SerializeObject(fsi.Result.Record));
+ 
+            s.CurrentApprovalUser= JsonConvert.DeserializeObject<FsiSent.User>(JsonConvert.SerializeObject(fsi.Result.CurrentApprovalUser));
+            s.ApplicationUserName = fsi.Result.ApplicationUserName;
+            s.CurrentApprovalUserId = long.Parse("160");
+            s.ApprovalTimes = fsi.Result.ApprovalTimes;
+            s.ApplicationUserId = fsi.Result.ApplicationUserId;
+            s.PageMode = "approval_detail";
+            s.InputRisk = "";
+            s.InputRiskControlAction = "";
+            s.RiskControlActions = "";
+            s.IdentifiedRisks = "";
+
+
+            return s;
         }
         public static QuickType.Record FsiData_Frm(string code)
         {
@@ -442,17 +543,17 @@ namespace OAconsole
         }
 
 
-          public static void  Fsi_BatAppapproval(string code)
+          public static void  Fsi_BatAppapproval(string Json_code)
         {
             //  var client = new RestClient("https://oa.chinasupercloud.com/api/productConfig/page?token=" + token);
-           // var client = new RestClient("https://oa.chinasupercloud.com/api/approval/get?token=" + token);
-            var client =new RestClient("https://oa.chinasupercloud.com/api/approval/save?token="+token);
+            // var client = new RestClient("https://oa.chinasupercloud.com/api/approval/get?token=" + token);
+            var client = new RestClient("https://oa.chinasupercloud.com/api/approval/save?token=" + "undefined");//token);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Connection", "keep-alive");
             //request.AddHeader("Cookie", "JSESSIONID=0E4B91133F74D631E898008614F829CB; //loginName="chenjx@chinasupercloud.com"");
             request.AddHeader("Cookie", "JSESSIONID=" + Jsid + "; loginName=\"" + LoginID + "\"; token=" + token);
-            request.AddHeader("Content-Length", "43");
+            //request.AddHeader("Content-Length", "7059");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("Host", "oa.chinasupercloud.com");
             // request.AddHeader("Postman-Token", "d48a4ffd-3297-44d7-9d85-00b37454874e,54a0c7dc-f259-415f-8812-3550161514fb");
@@ -463,12 +564,12 @@ namespace OAconsole
             //  request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             //   request.AddParameter("undefined", "{\"application_type\":" + code + ",\"record_id\":10,\"keyword\":\"\"}", ParameterType.RequestBody);
             //    request.AddParameter("undefined", "{\"application_type\":\"5\",\"record_id\":\""+code+"\"}", ParameterType.RequestBody);
-            request.AddParameter("undefined", "{\"approval_id\":" + code + "}", ParameterType.RequestBody);
-
+     //       request.AddParameter("undefined", "{\"approval_id\":" + code + "}", ParameterType.RequestBody);
+            request.AddParameter("undefined", Json_code, ParameterType.RequestBody);
             //{"application_type":"5","record_id":"4967"}
             IRestResponse response = client.Execute(request);
             //  Console.WriteLine(response.Content);
-            Console.WriteLine(response.Content);
+             Console.WriteLine(response.Content);
             //QuickType.Fsi fsi = QuickType.Fsi.FromJson(response.Content);
 
           //  return fsi.Result.Record;

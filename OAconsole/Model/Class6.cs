@@ -57,7 +57,7 @@ namespace QuickType
         public long ApprovalId { get; set; }
 
         [JsonProperty("current_application_time")]
-        public DateTimeOffset CurrentApplicationTime { get; set; }
+        public string CurrentApplicationTime { get; set; }
 
         [JsonProperty("record_id")]
         public long RecordId { get; set; }
@@ -84,7 +84,7 @@ namespace QuickType
         public long ApplicationUserId { get; set; }
 
         [JsonProperty("application_time")]
-        public DateTimeOffset ApplicationTime { get; set; }
+        public string ApplicationTime { get; set; }
 
         [JsonProperty("application_contents")]
         public string ApplicationContents { get; set; }
@@ -129,7 +129,7 @@ namespace QuickType
         public object ApprovalLevel { get; set; }
 
         [JsonProperty("approval_time")]
-        public DateTimeOffset? ApprovalTime { get; set; }
+        public string? ApprovalTime { get; set; }
 
         [JsonProperty("approval_user_name")]
         public string ApprovalUserName { get; set; }
@@ -141,7 +141,7 @@ namespace QuickType
         public long FinanceUserType { get; set; }
 
         [JsonProperty("application_time")]
-        public DateTimeOffset ApplicationTime { get; set; }
+        public string ApplicationTime { get; set; }
     }
 
     public partial class Record
@@ -201,7 +201,7 @@ namespace QuickType
         public object BeforehandName { get; set; }
 
         [JsonProperty("application_time")]
-        public DateTimeOffset ApplicationTime { get; set; }
+        public string ApplicationTime { get; set; }
 
         [JsonProperty("application_contents")]
         public string ApplicationContents { get; set; }
@@ -237,10 +237,10 @@ namespace QuickType
         public long IsDeleted { get; set; }
 
         [JsonProperty("update_time")]
-        public DateTimeOffset UpdateTime { get; set; }
+        public string UpdateTime { get; set; }
 
         [JsonProperty("create_time")]
-        public DateTimeOffset CreateTime { get; set; }
+        public string CreateTime { get; set; }
 
         [JsonProperty("owner_id")]
         public long OwnerId { get; set; }
@@ -273,7 +273,7 @@ namespace QuickType
         public string OwnerOrgName { get; set; }
 
         [JsonProperty("generation_date")]
-        public DateTimeOffset GenerationDate { get; set; }
+        public string GenerationDate { get; set; }
 
         [JsonProperty("creator_email")]
         public string CreatorEmail { get; set; }
@@ -303,10 +303,10 @@ namespace QuickType
         public string PaymentItemName { get; set; }
 
         [JsonProperty("update_time")]
-        public DateTimeOffset UpdateTime { get; set; }
+        public string UpdateTime { get; set; }
 
         [JsonProperty("create_time")]
-        public DateTimeOffset CreateTime { get; set; }
+        public string CreateTime { get; set; }
 
         [JsonProperty("owner_id")]
         public long OwnerId { get; set; }
