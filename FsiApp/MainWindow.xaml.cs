@@ -82,7 +82,7 @@ namespace FsiApp
                         records.Add(res);
                         foreach (var ress in res.PaymentItemList  )
                         {
-                            this.DataListBox.Items.Add(ress.CreatorEmail);
+                            this.DataListBox.Items.Add(ress.CreatorEmail+"\t"+ress.Amount.ToString()+"\t"+ress.PaymentItemName+"\t"+ress.OwnerOrgName +"\t"+ress.PaymentItemTypeName );
                         }
                     }
                     
