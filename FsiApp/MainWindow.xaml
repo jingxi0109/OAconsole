@@ -39,7 +39,7 @@
 
         </Grid>
 
-        <DataGrid x:Name="dataGrid" Margin="55,0,14,0" Grid.Column="2" HeadersVisibility="All" Height="465" VerticalAlignment="Center">
+        <DataGrid x:Name="dataGrid" Margin="34,10,35,0" Grid.Column="2" HeadersVisibility="All" Height="255" VerticalAlignment="Top">
             <!--<DataGrid ItemsSource=""></DataGrid>-->
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
@@ -52,7 +52,12 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
+        
         <ListBox x:Name="listBox" Grid.Column="1" Margin="25,30,25,20"/>
+        <StackPanel Grid.Column="2" Height="160" Margin="24,0,25,20" VerticalAlignment="Bottom">
+            <ListBox x:Name="DataListBox" Grid.Column="2" Height="160"/>
+            
+        </StackPanel>
 
     </Grid>
 </Window>

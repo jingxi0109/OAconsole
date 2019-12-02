@@ -80,6 +80,10 @@ namespace FsiApp
                         var res = OAconsole.Access_OA.FsiData_Frm(a);
                        // MessageBox.Show(res.OwnerName);//.ToString());
                         records.Add(res);
+                        foreach (var ress in res.PaymentItemList  )
+                        {
+                            this.DataListBox.Items.Add(ress.CreatorEmail);
+                        }
                     }
                     
                 }
