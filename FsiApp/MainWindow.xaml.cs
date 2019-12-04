@@ -67,41 +67,40 @@ namespace FsiApp
 
         private void btnFill_Click(object sender, RoutedEventArgs e)
         {
-            //List<QuickType.Record> records = new List<QuickType.Record>();
-            //this.dataGrid.ItemsSource = records;
+            List<QuickType.PaymentItemList> records = new List<QuickType.PaymentItemList>();
+         
             if(this.check_Logon.IsChecked.Value)
             {
                 for (int i = 0; i < this.TxtRow.LineCount; i++)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(100);
                     string a = this.TxtRow.GetLineText(i);
                     a = a.Replace("\r\n", "");
                     if (IsNumeric(a))
                     {
                         QuickType.Record res;
-                        try
-                        {
+                     
                             res= OAconsole.Access_OA.FsiData_Frm(a);
-                        }
-                        catch(Exception  ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                            res = OAconsole.Access_OA.FsiData_Frm(a);
-                        }
+                      
+                         //   MessageBox.Show(ex.Message);
+                    //        res = OAconsole.Access_OA.FsiData_Frm(a);
+                     
                       
 
                        // MessageBox.Show(res.OwnerName);//.ToString());
-                    //    records.Add(res);
+                        
                         foreach (var ress in res.PaymentItemList  )
                         {
                             this.DataListBox.Items.Add(ress.CreatorEmail+"\t"+ress.Amount.ToString()+"\t"+ress.PaymentItemName+"\t"+ress.OwnerOrgName +"\t"+ress.PaymentItemTypeName );
+                            records.Add(ress);
+                           
                         }
                     }
                     
                 }
                 //if (records.Count > 0)
                 //{
-                //    this.dataGrid.ItemsSource = records;
+                  this.dataGrid.ItemsSource = records;
                 //}
             }
 
