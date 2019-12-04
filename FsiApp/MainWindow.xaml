@@ -31,7 +31,7 @@
                 <TextBox  x:Name="txtverycode" Height="30"/>
                 <Button x:Name="btnSubmit" Content="访问OA" Height="20" Click="btnSubmit_Click"/>
                 <Button x:Name="refVeryCode" Content="更新验证码" Height="20" Click="refVeryCode_Click"/>
-                <CheckBox x:Name="check_Logon"  Content="OA 登录状态" IsEnabled="False"   />
+                <CheckBox x:Name="check_Logon"  Content="OA 登录状态" IsEnabled="False" Checked="check_Logon_Checked"   />
                 <Button x:Name="btnFill" Content="Fill Data" Click="btnFill_Click"    />
                 <Button x:Name="btnAutoApproval" Content="批复报销" Click="btn_Approval"/>
                 <Button x:Name="btnPay" Content="支付" Click="btnPay_Click"/>

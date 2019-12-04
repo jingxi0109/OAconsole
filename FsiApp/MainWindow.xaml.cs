@@ -67,19 +67,31 @@ namespace FsiApp
 
         private void btnFill_Click(object sender, RoutedEventArgs e)
         {
-            List<QuickType.Record> records = new List<QuickType.Record>();
+            //List<QuickType.Record> records = new List<QuickType.Record>();
             //this.dataGrid.ItemsSource = records;
             if(this.check_Logon.IsChecked.Value)
             {
                 for (int i = 0; i < this.TxtRow.LineCount; i++)
                 {
+                    System.Threading.Thread.Sleep(1000);
                     string a = this.TxtRow.GetLineText(i);
                     a = a.Replace("\r\n", "");
                     if (IsNumeric(a))
                     {
-                        var res = OAconsole.Access_OA.FsiData_Frm(a);
+                        QuickType.Record res;
+                        try
+                        {
+                            res= OAconsole.Access_OA.FsiData_Frm(a);
+                        }
+                        catch(Exception  ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            res = OAconsole.Access_OA.FsiData_Frm(a);
+                        }
+                      
+
                        // MessageBox.Show(res.OwnerName);//.ToString());
-                        records.Add(res);
+                    //    records.Add(res);
                         foreach (var ress in res.PaymentItemList  )
                         {
                             this.DataListBox.Items.Add(ress.CreatorEmail+"\t"+ress.Amount.ToString()+"\t"+ress.PaymentItemName+"\t"+ress.OwnerOrgName +"\t"+ress.PaymentItemTypeName );
@@ -87,10 +99,10 @@ namespace FsiApp
                     }
                     
                 }
-                if (records.Count > 0)
-                {
-                    this.dataGrid.ItemsSource = records;
-                }
+                //if (records.Count > 0)
+                //{
+                //    this.dataGrid.ItemsSource = records;
+                //}
             }
 
         }
@@ -159,8 +171,9 @@ namespace FsiApp
                 objNumberPattern.IsMatch(value);
         }
 
-   
+        private void check_Logon_Checked(object sender, RoutedEventArgs e)
+        {
 
-  
+        }
     }
 }

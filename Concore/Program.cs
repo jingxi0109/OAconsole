@@ -6,16 +6,21 @@ using NPOI.SS.UserModel;
 
 using System.IO;
 using NPOI.HSSF.UserModel;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace Concore
 {
     class Program
     {
+    
         static void Main(string[] args)
         {
   read_workbook();
              build_workbook();
-        
+            initial_DB();
+            Console.WriteLine(t_Departments.Count);
+            Console.WriteLine(t_Emps.Count);
             Console.WriteLine("app is done.");
             Console.ReadLine();
         }
@@ -40,7 +45,9 @@ namespace Concore
             {
                 Console.WriteLine(res.StringCellValue);
             }
+            
             build_static_Row(row);
+            build_Dynamic_Row(row);
             //for (int i = 0; i < 20; i++)
             //{
             //    ICell cell = row.CreateCell(i);  //在第二行中创建单元格
@@ -89,7 +96,15 @@ namespace Concore
         }
         static void build_Dynamic_Row(IRow cells)
         {
+            cells.CreateCell(5).SetCellValue("6601.018");//Fsi data
+            cells.CreateCell(6).SetCellValue("服务费");
 
+            cells.CreateCell(9).SetCellValue("1232");
+            cells.CreateCell(10).SetCellValue("112");
+
+            cells.CreateCell(19).SetCellValue("招待费"); //item description
+            cells.CreateCell(32).SetCellValue("1");//id
+            cells.CreateCell(33).SetCellValue("部门--023--湖南办事处||职员---130-0006---name");//org info
         }
 
         static void build_static_Row(IRow Row)
@@ -140,5 +155,32 @@ namespace Concore
             Row.CreateCell(35).SetCellValue("");
             Row.CreateCell(36).SetCellValue("");
         }
+
+        static string info_builder(string f_1, string f_2, string f_3, string f_4)
+        {
+
+            return "'部门---"+f_1+"---"+f_2+"||职员---"+f_3+"---"+f_4;
+        }
+
+        static void initial_DB()
+        {
+            string json = "";
+            using (WebClient wc=new WebClient())
+            {
+                wc.Encoding = System.Text.Encoding.UTF8;
+                json = wc.DownloadString("http://192.168.7.10:8080/api/emp");
+                var table = JsonConvert.DeserializeObject<List<ConsoleApp1.t_Emp>>(json);
+                t_Emps = table;
+            }
+            using (WebClient wc = new WebClient())
+            {
+                wc.Encoding = System.Text.Encoding.UTF8;
+                json = wc.DownloadString("http://192.168.7.10:8080/api/dep");
+                var table = JsonConvert.DeserializeObject<List<ConsoleApp1.t_Department>>(json);
+                t_Departments = table;
+            }
+        }
+       static List<ConsoleApp1.t_Emp> t_Emps;
+        static List<ConsoleApp1.t_Department> t_Departments;
     }
 }
