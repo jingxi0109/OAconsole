@@ -3,51 +3,102 @@ using System.Collections.Generic;
 using System.Text;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
-
+using System.Linq;
 using System.IO;
 using NPOI.HSSF.UserModel;
 using System.Net;
 using Newtonsoft.Json;
+using System.Collections;
+using System.Data;
 
 namespace Concore
 {
     class Program
     {
-    
+
         static void Main(string[] args)
         {
-  read_workbook();
-             build_workbook();
+            read_workbook();
+
             initial_DB();
+            Build_DataSet();
+            build_workbook();
             Console.WriteLine(t_Departments.Count);
             Console.WriteLine(t_Emps.Count);
+            SaveFile();
+           
+
+
+            Console.WriteLine("app is done.");
+            Console.ReadLine();
+        }
+       static  System.Data.DataSet dataSet;
+        static void Build_DataSet()
+        {
+            dataSet = new System.Data.DataSet();
+            dataSet.ReadXml("FsiCode.xml");
+            foreach (System.Data.DataRow aas in dataSet.Tables[0].Rows)
+            {
+
+                Console.WriteLine();
+                foreach (var res in aas.ItemArray)
+                {
+                    Console.Write(res.ToString() + "\t");
+                }
+            }
+            Console.WriteLine(dataSet.Tables[0].Rows.Count);
+
+        }
+        static void Test_interface(List<QuickType.PaymentItemList> records)
+        {
+            read_workbook();
+
+            initial_DB();
+            build_workbook();
+            Console.WriteLine(t_Departments.Count);
+            Console.WriteLine(t_Emps.Count);
+            SaveFile();
             Console.WriteLine("app is done.");
             Console.ReadLine();
         }
         static IRow r;
+        static NPOI.HSSF.UserModel.HSSFWorkbook workbook;
         static void build_workbook()
         {
-            NPOI.HSSF.UserModel.HSSFWorkbook workbook = new NPOI.HSSF.UserModel.HSSFWorkbook();
+            workbook = new NPOI.HSSF.UserModel.HSSFWorkbook();
 
-          ISheet tb=  workbook.CreateSheet("Page1");
+            ISheet tb = workbook.CreateSheet("Page1");
 
-            IRow row = tb.CreateRow(1);
+           
             IRow r0 = tb.CreateRow(0);
-          
-            for( int i=0; i<r.Cells.Count;i++)
+
+            for (int i = 0; i < r.Cells.Count; i++)
             {
                 string strr = r.GetCell(i).StringCellValue;
                 ICell cell = r0.CreateCell(i);
                 cell.SetCellValue(strr);
             }
-            
-          foreach(var res in r0.Cells)
+
+            foreach (var res in r0.Cells)
             {
                 Console.WriteLine(res.StringCellValue);
             }
             
-            build_static_Row(row);
-            build_Dynamic_Row(row);
+            List<QuickType.PaymentItemList> records = new List<QuickType.PaymentItemList>();
+            //foreach (var res in records)
+            //{
+               
+            //}
+
+            for (int i=0; i<records.Count;i++)
+            {
+                IRow row = tb.CreateRow(i+1);
+                Add_Row(row, records[i]);
+            }
+
+         //   build_static_Row(row);
+         //   build_Dynamic_Row(row);
+       
             //for (int i = 0; i < 20; i++)
             //{
             //    ICell cell = row.CreateCell(i);  //在第二行中创建单元格
@@ -56,6 +107,16 @@ namespace Concore
 
 
 
+            
+        }
+        static void Add_Row(IRow cells,QuickType.PaymentItemList list )
+        {
+            build_static_Row(cells);
+            build_Dynamic_Row(cells,list);
+            
+        }
+        static void SaveFile ()
+            {
             FileStream sw = File.Create("Export.xls");
             workbook.Write(sw);
             sw.Close();
@@ -94,19 +155,39 @@ namespace Concore
             }
          //   Console.WriteLine(sbr.ToString());
         }
-        static void build_Dynamic_Row(IRow cells)
+        static string Fsi_Code(string typename)
         {
-            cells.CreateCell(5).SetCellValue("6601.018");//Fsi data
-            cells.CreateCell(6).SetCellValue("服务费");
+            var s = dataSet.Tables[0].AsEnumerable();
+       //     s.Select(x=>x.ItemArray[] )
 
-            cells.CreateCell(9).SetCellValue("1232");
-            cells.CreateCell(10).SetCellValue("112");
-
-            cells.CreateCell(19).SetCellValue("招待费"); //item description
-            cells.CreateCell(32).SetCellValue("1");//id
-            cells.CreateCell(33).SetCellValue("部门--023--湖南办事处||职员---130-0006---name");//org info
+            return "";
         }
+        static void build_Dynamic_Row(IRow cells, QuickType.PaymentItemList list)
+        {
 
+    
+
+            cells.CreateCell(5).SetCellValue("");//Fsi data科目代码
+            cells.CreateCell(6).SetCellValue(list.PaymentItemTypeName );//科目名称
+
+            cells.CreateCell(9).SetCellValue(list.Amount.ToString());//原币金额
+            cells.CreateCell(10).SetCellValue("112");//借方？？？
+
+            cells.CreateCell(19).SetCellValue(list.PaymentItemName ); //item description 描述
+            cells.CreateCell(32).SetCellValue("1");//id  分录序号
+            cells.CreateCell(33).SetCellValue("部门--"+Org_name (list.OwnerOrgName )+"--"+list.OwnerOrgName  +"||职员---"+Emp_name(list.CreatorName )+"---"+list.CreatorName);//org info 部门，员工，creater name
+        }
+        static string Org_name(string org)
+        {
+            //  t_Departments
+        string res=    t_Departments.Find(x => x.FName == org).FNumber ;
+            return res;
+        }
+        static string Emp_name(string emp)
+        {
+            string res = t_Emps.Find(x => x.FName == emp).FNumber;
+            return res;
+        }
         static void build_static_Row(IRow Row)
         {
             Row.CreateCell(0).SetCellValue(DateTime.Now.ToString("d"));
@@ -168,14 +249,16 @@ namespace Concore
             using (WebClient wc=new WebClient())
             {
                 wc.Encoding = System.Text.Encoding.UTF8;
-                json = wc.DownloadString("http://192.168.7.10:8080/api/emp");
+             //   json = wc.DownloadString("http://192.168.7.10:8080/api/emp"); //http://eyqkj3.natappfree.cc/api/dep
+                json = wc.DownloadString("http://eyqkj3.natappfree.cc/api/emp");
                 var table = JsonConvert.DeserializeObject<List<ConsoleApp1.t_Emp>>(json);
                 t_Emps = table;
             }
             using (WebClient wc = new WebClient())
             {
                 wc.Encoding = System.Text.Encoding.UTF8;
-                json = wc.DownloadString("http://192.168.7.10:8080/api/dep");
+               // json = wc.DownloadString("http://192.168.7.10:8080/api/dep");
+                json = wc.DownloadString("http://eyqkj3.natappfree.cc/api/dep");
                 var table = JsonConvert.DeserializeObject<List<ConsoleApp1.t_Department>>(json);
                 t_Departments = table;
             }

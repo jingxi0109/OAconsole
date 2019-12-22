@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="FsiCode.xml" />
     <None Remove="invoice.xls" />
   </ItemGroup>
 
@@ -16,12 +17,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="FsiCode.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NPOI" Version="2.4.1" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\AppSelfHost\ConsoleApp1\ConsoleApp1.csproj" />
+    <ProjectReference Include="..\OAconsole\OAconsole.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <index id="1">
+    <Item-type>本地交通费</Item-type>
+    <sales-code>6601.016</sales-code>
+    <mgnt-code>6602.026</mgnt-code>
+  </index>
+  <index id="2">
+    <Item-type>本地住宿费</Item-type>
+    <sales-code>6601.03</sales-code>
+    <mgnt-code>6602.0100</mgnt-code>
+  </index>
+  <index id="3">
+    <Item-type>手机话费</Item-type>
+    <sales-code>6601.017</sales-code>
+    <mgnt-code>6602.027</mgnt-code>
+  </index>
+  <index id="4">
+    <Item-type>差旅住宿费</Item-type>
+    <sales-code>6601.027.01</sales-code>
+    <mgnt-code>6602.040.01</mgnt-code>
+  </index>
+  <index id="5">
+    <Item-type>差旅餐费</Item-type>
+    <sales-code>6601.027.03</sales-code>
+    <mgnt-code>6602.040.03</mgnt-code>
+  </index>
+  <index id="6">
+    <Item-type>差旅交通费</Item-type>
+    <sales-code>6601.027.04</sales-code>
+    <mgnt-code>6602.040.05</mgnt-code>
+  </index>
+  <index id="7">
+    <Item-type>差旅机车票款</Item-type>
+    <sales-code>6601.027.02</sales-code>
+    <mgnt-code>6602.040.02</mgnt-code>
+  </index>
+  <index id="8">
+    <Item-type>客户招待费</Item-type>
+    <sales-code>6601.001</sales-code>
+    <mgnt-code>6602.001</mgnt-code>
+  </index>
+  <index id="9">
+    <Item-type>办公用品</Item-type>
+    <sales-code>6601.013</sales-code>
+    <mgnt-code>6602.021</mgnt-code>
+  </index>
+  <index id="10">
+    <Item-type>福利费</Item-type>
+    <sales-code>6601.029</sales-code>
+    <mgnt-code>6602.014</mgnt-code>
+  </index>
+  <index id="11">
+    <Item-type>工作餐费</Item-type>
+    <sales-code>6601.02</sales-code>
+    <mgnt-code>6602.032</mgnt-code>
+  </index>
+  <index id="12">
+    <Item-type>邮寄费</Item-type>
+    <sales-code>6601.026</sales-code>
+    <mgnt-code>6602.039</mgnt-code>
+  </index>
+  <index id="13">
+    <Item-type>维修费</Item-type>
+    <sales-code>-</sales-code>
+    <mgnt-code>6602.042</mgnt-code>
+  </index>
+  <index id="14">
+    <Item-type>服务费</Item-type>
+    <sales-code>6601.018</sales-code>
+    <mgnt-code>6602.030</mgnt-code>
+  </index>
+  <index id="15">
+    <Item-type>团队活动</Item-type>
+    <sales-code>6601.019</sales-code>
+    <mgnt-code>6602.031</mgnt-code>
+  </index>
+  <index id="16">
+    <Item-type>会议费</Item-type>
+    <sales-code>3301.021</sales-code>
+    <mgnt-code>6602.034</mgnt-code>
+  </index>
+  <index id="17">
+    <Item-type>培训费</Item-type>
+    <sales-code>6601.023</sales-code>
+    <mgnt-code>6602.037</mgnt-code>
+  </index>
+  <index id="18">
+    <Item-type>名片费</Item-type>
+    <sales-code>6601.024</sales-code>
+    <mgnt-code>6602.036</mgnt-code>
+  </index>
+  <index id="19">
+    <Item-type>标书制作费</Item-type>
+    <sales-code>6601.015</sales-code>
+    <mgnt-code>-</mgnt-code>
+  </index>
+  <index id="20">
+    <Item-type>书报杂志</Item-type>
+    <sales-code>6601.031</sales-code>
+    <mgnt-code>6602.022</mgnt-code>
+  </index>
+</document>
