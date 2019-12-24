@@ -122,7 +122,7 @@ namespace Concore
             //    cell.SetCellValue(i);//循环往第二行的单元格中添加数据
             //}
 
-            FileStream sw = File.Create("Exports.xls");
+            FileStream sw = File.Create("Exports"+DateTime.Now.ToString("d")+".xls");
             workbook.Write(sw);
             sw.Close();
 
