@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Concore", "Concore\Concore.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsiApp", "FsiApp\FsiApp.csproj", "{19ED071D-DA0D-4C27-A4FF-ABD23D0B0885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "..\..\AppSelfHost\ConsoleApp1\ConsoleApp1.csproj", "{8C53A57D-00A3-44E2-BF9A-262F2C8D28E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "..\..\..\1222\ConsoleApp1\ConsoleApp1.csproj", "{8C53A57D-00A3-44E2-BF9A-262F2C8D28E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

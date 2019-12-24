@@ -104,6 +104,7 @@ namespace FsiApp
                 //}
             }
 
+            Concore.Program.Test_interface(records);
         }
         private void btn_Approval(object sender, RoutedEventArgs e)
         {

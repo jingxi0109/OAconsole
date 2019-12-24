@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\AppSelfHost\ConsoleApp1\ConsoleApp1.csproj" />
+    <ProjectReference Include="..\..\..\..\1222\ConsoleApp1\ConsoleApp1.csproj" />
     <ProjectReference Include="..\OAconsole\OAconsole.csproj" />
   </ItemGroup>
 
