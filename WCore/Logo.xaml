@@ -12,13 +12,13 @@
             <CheckBox x:Name="checkBox" Content="登录状态" Width="80" IsEnabled="False" RenderTransformOrigin="1.875,2.368"/>
         
             <Label>用户名</Label>
-            <TextBox x:Name="txt_username" Text="chenjx@chinasupercloud.com" TextWrapping="Wrap" Width="220"/>
+            <TextBox x:Name="txt_username" Text="oa@chinasupercloud.com" TextWrapping="Wrap" Width="220"/>
             <Label>密码</Label>
             <!--<TextBox x:Name="txt_passcode" Text="" TextWrapping="Wrap" Width="120"/>-->
             <PasswordBox  Width="220" 
          Name="txt_passcode" 
          Background="LightBlue" Foreground="DarkBlue" 
-         MaxLength="25" PasswordChar="*" Password="Winsows200" 
+         MaxLength="25" PasswordChar="*" Password="SuperCloud!" 
          />
 
             <Image x:Name="image" Height="44" Width="135" Loaded="image_Loaded" Opacity="0.9" OpacityMask="#FF1D421D"/>

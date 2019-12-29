@@ -429,7 +429,7 @@ namespace QT_configbuilder
         public DateTimeOffset UpdateTime { get; set; }
 
         [JsonProperty("bulk_sale_flg")]
-        public long BulkSaleFlg { get; set; }
+        public long? BulkSaleFlg { get; set; }
 
         [JsonProperty("create_time")]
         public DateTimeOffset CreateTime { get; set; }

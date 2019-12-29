@@ -11,7 +11,7 @@
         <DataGrid x:Name="dataGrid" Margin="10,10,10,0" Height="630" VerticalAlignment="Top"/>
         <Button x:Name="btn" Content="logon" HorizontalAlignment="Left" Margin="22,675,0,0" VerticalAlignment="Top" Click="btn_Click"/>
         <Button x:Name="btn_data" Content="fill data" HorizontalAlignment="Left" Margin="22,710,0,0" VerticalAlignment="Top" Click="btn_data_Click"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="99,677,0,0" Text="F20191108N043123" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="99,677,0,0" Text="F20191227N048840" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
         <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="99,710,0,0" VerticalAlignment="Top" Width="120"/>
         <ListView x:Name="listVieww" Margin="295,665,10,10">
             <ListView.View>
