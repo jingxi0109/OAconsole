@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="K_Org.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t_Department">
+          <Key>
+            <PropertyRef Name="FItemID" />
+          </Key>
+          <Property Name="FItemID" Type="int" Nullable="false" />
+          <Property Name="FBrNO" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="FManager" Type="int" />
+          <Property Name="FPhone" Type="varchar" MaxLength="30" />
+          <Property Name="FFax" Type="varchar" MaxLength="30" />
+          <Property Name="FNote" Type="varchar" MaxLength="255" />
+          <Property Name="FNumber" Type="varchar" MaxLength="255" />
+          <Property Name="FName" Type="varchar" MaxLength="255" />
+          <Property Name="FParentID" Type="int" />
+          <Property Name="FDProperty" Type="int" Nullable="false" />
+          <Property Name="FDStock" Type="int" />
+          <Property Name="FDeleted" Type="smallint" Nullable="false" />
+          <Property Name="FShortNumber" Type="varchar" MaxLength="80" />
+          <Property Name="FAcctID" Type="int" Nullable="false" />
+          <Property Name="FCostAccountType" Type="int" Nullable="false" />
+          <Property Name="FModifyTime" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="FCalID" Type="int" Nullable="false" />
+          <Property Name="FPlanArea" Type="int" />
+          <Property Name="FOtherARAcctID" Type="int" Nullable="false" />
+          <Property Name="FOtherAPAcctID" Type="int" Nullable="false" />
+          <Property Name="FPreARAcctID" Type="int" Nullable="false" />
+          <Property Name="FPreAPAcctID" Type="int" Nullable="false" />
+          <Property Name="FIsCreditMgr" Type="bit" Nullable="false" />
+          <Property Name="FIsVDept" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“AIS20101122132235.dbo.t_Emp”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="t_Emp">
+          <Key>
+            <PropertyRef Name="FCityID" />
+            <PropertyRef Name="FFingerprintCardNo" />
+            <PropertyRef Name="FItemID" />
+            <PropertyRef Name="FName" />
+            <PropertyRef Name="FProvinceID" />
+          </Key>
+          <Property Name="FAccountName" Type="varchar" MaxLength="100" />
+          <Property Name="FAddress" Type="varchar" MaxLength="255" />
+          <Property Name="FAllotPercent" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FAllotWeight" Type="decimal" Precision="28" Scale="13" />
+          <Property Name="FBankAccount" Type="varchar" MaxLength="100" />
+          <Property Name="FBankID" Type="int" />
+          <Property Name="FBirthday" Type="datetime" />
+          <Property Name="FBrNO" Type="char" MaxLength="10" />
+          <Property Name="FCityID" Type="int" Nullable="false" />
+          <Property Name="FCreditAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FCreditDays" Type="int" />
+          <Property Name="FCreditLevel" Type="int" />
+          <Property Name="FCreditPeriod" Type="int" />
+          <Property Name="FDegree" Type="int" />
+          <Property Name="FDeleted" Type="smallint" />
+          <Property Name="FDepartmentID" Type="int" />
+          <Property Name="FDuty" Type="int" />
+          <Property Name="FEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="FEmpGroup" Type="int" />
+          <Property Name="FEmpGroupID" Type="int" />
+          <Property Name="FFingerprintCardNo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FGender" Type="int" />
+          <Property Name="FHireDate" Type="datetime" />
+          <Property Name="FID" Type="varchar" MaxLength="50" />
+          <Property Name="FIsCreditMgr" Type="bit" />
+          <Property Name="FItemDepID" Type="int" />
+          <Property Name="FItemID" Type="int" Nullable="false" />
+          <Property Name="FJobTypeID" Type="int" />
+          <Property Name="FLeaveDate" Type="datetime" />
+          <Property Name="FMFGCardNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="FMobilePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="FModifyTime" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="FName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FNote" Type="varchar" MaxLength="255" />
+          <Property Name="FNumber" Type="varchar" MaxLength="255" />
+          <Property Name="FOperationGroup" Type="int" />
+          <Property Name="FOtherAPAcctID" Type="int" />
+          <Property Name="FOtherARAcctID" Type="int" />
+          <Property Name="FParentID" Type="int" />
+          <Property Name="FPersonalBank" Type="varchar" MaxLength="100" />
+          <Property Name="FPhone" Type="varchar" MaxLength="40" />
+          <Property Name="FPreAPAcctID" Type="int" />
+          <Property Name="FPreARAcctID" Type="int" />
+          <Property Name="FProfessionalGroup" Type="int" />
+          <Property Name="FProvinceID" Type="int" Nullable="false" />
+          <Property Name="FShortNumber" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityContainer Name="K_OrgStoreContainer">
+          <EntitySet Name="t_Department" EntityType="Self.t_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Emp" EntityType="Self.t_Emp" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_Emp].[FAccountName] AS [FAccountName], 
+    [t_Emp].[FAddress] AS [FAddress], 
+    [t_Emp].[FAllotPercent] AS [FAllotPercent], 
+    [t_Emp].[FAllotWeight] AS [FAllotWeight], 
+    [t_Emp].[FBankAccount] AS [FBankAccount], 
+    [t_Emp].[FBankID] AS [FBankID], 
+    [t_Emp].[FBirthday] AS [FBirthday], 
+    [t_Emp].[FBrNO] AS [FBrNO], 
+    [t_Emp].[FCityID] AS [FCityID], 
+    [t_Emp].[FCreditAmount] AS [FCreditAmount], 
+    [t_Emp].[FCreditDays] AS [FCreditDays], 
+    [t_Emp].[FCreditLevel] AS [FCreditLevel], 
+    [t_Emp].[FCreditPeriod] AS [FCreditPeriod], 
+    [t_Emp].[FDegree] AS [FDegree], 
+    [t_Emp].[FDeleted] AS [FDeleted], 
+    [t_Emp].[FDepartmentID] AS [FDepartmentID], 
+    [t_Emp].[FDuty] AS [FDuty], 
+    [t_Emp].[FEmail] AS [FEmail], 
+    [t_Emp].[FEmpGroup] AS [FEmpGroup], 
+    [t_Emp].[FEmpGroupID] AS [FEmpGroupID], 
+    [t_Emp].[FFingerprintCardNo] AS [FFingerprintCardNo], 
+    [t_Emp].[FGender] AS [FGender], 
+    [t_Emp].[FHireDate] AS [FHireDate], 
+    [t_Emp].[FID] AS [FID], 
+    [t_Emp].[FIsCreditMgr] AS [FIsCreditMgr], 
+    [t_Emp].[FItemDepID] AS [FItemDepID], 
+    [t_Emp].[FItemID] AS [FItemID], 
+    [t_Emp].[FJobTypeID] AS [FJobTypeID], 
+    [t_Emp].[FLeaveDate] AS [FLeaveDate], 
+    [t_Emp].[FMFGCardNo] AS [FMFGCardNo], 
+    [t_Emp].[FMobilePhone] AS [FMobilePhone], 
+    [t_Emp].[FModifyTime] AS [FModifyTime], 
+    [t_Emp].[FName] AS [FName], 
+    [t_Emp].[FNote] AS [FNote], 
+    [t_Emp].[FNumber] AS [FNumber], 
+    [t_Emp].[FOperationGroup] AS [FOperationGroup], 
+    [t_Emp].[FOtherAPAcctID] AS [FOtherAPAcctID], 
+    [t_Emp].[FOtherARAcctID] AS [FOtherARAcctID], 
+    [t_Emp].[FParentID] AS [FParentID], 
+    [t_Emp].[FPersonalBank] AS [FPersonalBank], 
+    [t_Emp].[FPhone] AS [FPhone], 
+    [t_Emp].[FPreAPAcctID] AS [FPreAPAcctID], 
+    [t_Emp].[FPreARAcctID] AS [FPreARAcctID], 
+    [t_Emp].[FProfessionalGroup] AS [FProfessionalGroup], 
+    [t_Emp].[FProvinceID] AS [FProvinceID], 
+    [t_Emp].[FShortNumber] AS [FShortNumber]
+    FROM [dbo].[t_Emp] AS [t_Emp]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="K_Org" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="t_Department">
+          <Key>
+            <PropertyRef Name="FItemID" />
+          </Key>
+          <Property Name="FItemID" Type="Int32" Nullable="false" />
+          <Property Name="FBrNO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FManager" Type="Int32" />
+          <Property Name="FPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FFax" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FNote" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FParentID" Type="Int32" />
+          <Property Name="FDProperty" Type="Int32" Nullable="false" />
+          <Property Name="FDStock" Type="Int32" />
+          <Property Name="FDeleted" Type="Int16" Nullable="false" />
+          <Property Name="FShortNumber" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="FAcctID" Type="Int32" Nullable="false" />
+          <Property Name="FCostAccountType" Type="Int32" Nullable="false" />
+          <Property Name="FModifyTime" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="FCalID" Type="Int32" Nullable="false" />
+          <Property Name="FPlanArea" Type="Int32" />
+          <Property Name="FOtherARAcctID" Type="Int32" Nullable="false" />
+          <Property Name="FOtherAPAcctID" Type="Int32" Nullable="false" />
+          <Property Name="FPreARAcctID" Type="Int32" Nullable="false" />
+          <Property Name="FPreAPAcctID" Type="Int32" Nullable="false" />
+          <Property Name="FIsCreditMgr" Type="Boolean" Nullable="false" />
+          <Property Name="FIsVDept" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_Emp">
+          <Key>
+            <PropertyRef Name="FCityID" />
+            <PropertyRef Name="FFingerprintCardNo" />
+            <PropertyRef Name="FItemID" />
+            <PropertyRef Name="FName" />
+            <PropertyRef Name="FProvinceID" />
+          </Key>
+          <Property Name="FAccountName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FAllotPercent" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FAllotWeight" Type="Decimal" Precision="28" Scale="13" />
+          <Property Name="FBankAccount" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FBankID" Type="Int32" />
+          <Property Name="FBirthday" Type="DateTime" Precision="3" />
+          <Property Name="FBrNO" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FCityID" Type="Int32" Nullable="false" />
+          <Property Name="FCreditAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FCreditDays" Type="Int32" />
+          <Property Name="FCreditLevel" Type="Int32" />
+          <Property Name="FCreditPeriod" Type="Int32" />
+          <Property Name="FDegree" Type="Int32" />
+          <Property Name="FDeleted" Type="Int16" />
+          <Property Name="FDepartmentID" Type="Int32" />
+          <Property Name="FDuty" Type="Int32" />
+          <Property Name="FEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FEmpGroup" Type="Int32" />
+          <Property Name="FEmpGroupID" Type="Int32" />
+          <Property Name="FFingerprintCardNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FGender" Type="Int32" />
+          <Property Name="FHireDate" Type="DateTime" Precision="3" />
+          <Property Name="FID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FIsCreditMgr" Type="Boolean" />
+          <Property Name="FItemDepID" Type="Int32" />
+          <Property Name="FItemID" Type="Int32" Nullable="false" />
+          <Property Name="FJobTypeID" Type="Int32" />
+          <Property Name="FLeaveDate" Type="DateTime" Precision="3" />
+          <Property Name="FMFGCardNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FMobilePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FModifyTime" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FNote" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FOperationGroup" Type="Int32" />
+          <Property Name="FOtherAPAcctID" Type="Int32" />
+          <Property Name="FOtherARAcctID" Type="Int32" />
+          <Property Name="FParentID" Type="Int32" />
+          <Property Name="FPersonalBank" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FPhone" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="FPreAPAcctID" Type="Int32" />
+          <Property Name="FPreARAcctID" Type="Int32" />
+          <Property Name="FProfessionalGroup" Type="Int32" />
+          <Property Name="FProvinceID" Type="Int32" Nullable="false" />
+          <Property Name="FShortNumber" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="AIent" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="t_Department" EntityType="Self.t_Department" />
+          <EntitySet Name="t_Emp" EntityType="Self.t_Emp" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="K_OrgStoreContainer" CdmEntityContainer="AIent">
+          <EntitySetMapping Name="t_Department">
+            <EntityTypeMapping TypeName="K_Org.t_Department">
+              <MappingFragment StoreEntitySet="t_Department">
+                <ScalarProperty Name="FItemID" ColumnName="FItemID" />
+                <ScalarProperty Name="FBrNO" ColumnName="FBrNO" />
+                <ScalarProperty Name="FManager" ColumnName="FManager" />
+                <ScalarProperty Name="FPhone" ColumnName="FPhone" />
+                <ScalarProperty Name="FFax" ColumnName="FFax" />
+                <ScalarProperty Name="FNote" ColumnName="FNote" />
+                <ScalarProperty Name="FNumber" ColumnName="FNumber" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="FParentID" ColumnName="FParentID" />
+                <ScalarProperty Name="FDProperty" ColumnName="FDProperty" />
+                <ScalarProperty Name="FDStock" ColumnName="FDStock" />
+                <ScalarProperty Name="FDeleted" ColumnName="FDeleted" />
+                <ScalarProperty Name="FShortNumber" ColumnName="FShortNumber" />
+                <ScalarProperty Name="FAcctID" ColumnName="FAcctID" />
+                <ScalarProperty Name="FCostAccountType" ColumnName="FCostAccountType" />
+                <ScalarProperty Name="FModifyTime" ColumnName="FModifyTime" />
+                <ScalarProperty Name="FCalID" ColumnName="FCalID" />
+                <ScalarProperty Name="FPlanArea" ColumnName="FPlanArea" />
+                <ScalarProperty Name="FOtherARAcctID" ColumnName="FOtherARAcctID" />
+                <ScalarProperty Name="FOtherAPAcctID" ColumnName="FOtherAPAcctID" />
+                <ScalarProperty Name="FPreARAcctID" ColumnName="FPreARAcctID" />
+                <ScalarProperty Name="FPreAPAcctID" ColumnName="FPreAPAcctID" />
+                <ScalarProperty Name="FIsCreditMgr" ColumnName="FIsCreditMgr" />
+                <ScalarProperty Name="FIsVDept" ColumnName="FIsVDept" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Emp">
+            <EntityTypeMapping TypeName="K_Org.t_Emp">
+              <MappingFragment StoreEntitySet="t_Emp">
+                <ScalarProperty Name="FAccountName" ColumnName="FAccountName" />
+                <ScalarProperty Name="FAddress" ColumnName="FAddress" />
+                <ScalarProperty Name="FAllotPercent" ColumnName="FAllotPercent" />
+                <ScalarProperty Name="FAllotWeight" ColumnName="FAllotWeight" />
+                <ScalarProperty Name="FBankAccount" ColumnName="FBankAccount" />
+                <ScalarProperty Name="FBankID" ColumnName="FBankID" />
+                <ScalarProperty Name="FBirthday" ColumnName="FBirthday" />
+                <ScalarProperty Name="FBrNO" ColumnName="FBrNO" />
+                <ScalarProperty Name="FCityID" ColumnName="FCityID" />
+                <ScalarProperty Name="FCreditAmount" ColumnName="FCreditAmount" />
+                <ScalarProperty Name="FCreditDays" ColumnName="FCreditDays" />
+                <ScalarProperty Name="FCreditLevel" ColumnName="FCreditLevel" />
+                <ScalarProperty Name="FCreditPeriod" ColumnName="FCreditPeriod" />
+                <ScalarProperty Name="FDegree" ColumnName="FDegree" />
+                <ScalarProperty Name="FDeleted" ColumnName="FDeleted" />
+                <ScalarProperty Name="FDepartmentID" ColumnName="FDepartmentID" />
+                <ScalarProperty Name="FDuty" ColumnName="FDuty" />
+                <ScalarProperty Name="FEmail" ColumnName="FEmail" />
+                <ScalarProperty Name="FEmpGroup" ColumnName="FEmpGroup" />
+                <ScalarProperty Name="FEmpGroupID" ColumnName="FEmpGroupID" />
+                <ScalarProperty Name="FFingerprintCardNo" ColumnName="FFingerprintCardNo" />
+                <ScalarProperty Name="FGender" ColumnName="FGender" />
+                <ScalarProperty Name="FHireDate" ColumnName="FHireDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="FIsCreditMgr" ColumnName="FIsCreditMgr" />
+                <ScalarProperty Name="FItemDepID" ColumnName="FItemDepID" />
+                <ScalarProperty Name="FItemID" ColumnName="FItemID" />
+                <ScalarProperty Name="FJobTypeID" ColumnName="FJobTypeID" />
+                <ScalarProperty Name="FLeaveDate" ColumnName="FLeaveDate" />
+                <ScalarProperty Name="FMFGCardNo" ColumnName="FMFGCardNo" />
+                <ScalarProperty Name="FMobilePhone" ColumnName="FMobilePhone" />
+                <ScalarProperty Name="FModifyTime" ColumnName="FModifyTime" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="FNote" ColumnName="FNote" />
+                <ScalarProperty Name="FNumber" ColumnName="FNumber" />
+                <ScalarProperty Name="FOperationGroup" ColumnName="FOperationGroup" />
+                <ScalarProperty Name="FOtherAPAcctID" ColumnName="FOtherAPAcctID" />
+                <ScalarProperty Name="FOtherARAcctID" ColumnName="FOtherARAcctID" />
+                <ScalarProperty Name="FParentID" ColumnName="FParentID" />
+                <ScalarProperty Name="FPersonalBank" ColumnName="FPersonalBank" />
+                <ScalarProperty Name="FPhone" ColumnName="FPhone" />
+                <ScalarProperty Name="FPreAPAcctID" ColumnName="FPreAPAcctID" />
+                <ScalarProperty Name="FPreARAcctID" ColumnName="FPreARAcctID" />
+                <ScalarProperty Name="FProfessionalGroup" ColumnName="FProfessionalGroup" />
+                <ScalarProperty Name="FProvinceID" ColumnName="FProvinceID" />
+                <ScalarProperty Name="FShortNumber" ColumnName="FShortNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
